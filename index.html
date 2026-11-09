@@ -11,7 +11,7 @@
 <link rel="icon" href="img/logo.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&family=Noto+Sans+Malayalam:wght@400;500;600&family=Noto+Serif+Malayalam:wght@500;600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#000;--ink:#f4f1ec;--mute:#9a958e;--line:#262422;--flame:#f23d1c;--card:#0d0c0b}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -19,7 +19,17 @@ html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font:400 16px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:inherit}
 .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
-.serif{font-family:"Cormorant Garamond",Georgia,serif}
+.serif{font-family:"Cormorant Garamond","Noto Serif Malayalam",Georgia,serif}
+html[lang=ml] body{font-family:"Noto Sans Malayalam",Inter,system-ui,sans-serif;line-height:1.75}
+html[lang=ml] .serif{font-family:"Noto Serif Malayalam",Georgia,serif}
+html[lang=ml] h1{font-size:clamp(34px,5.2vw,62px);line-height:1.25}
+html[lang=ml] h2{font-size:clamp(28px,4vw,44px);line-height:1.3}
+html[lang=ml] .card h3{font-size:24px}
+html[lang=ml] .steps h3{font-size:21px}
+html[lang=ml] .btn,html[lang=ml] .eyebrow{text-transform:none;letter-spacing:0}
+.hdr-r{display:flex;gap:10px;align-items:center}
+.lang{background:none;border:1px solid #3a3734;color:var(--ink);border-radius:2px;padding:9px 12px;font:500 13px "Noto Sans Malayalam",Inter,sans-serif;cursor:pointer}
+.lang:hover{border-color:var(--ink)}
 header{position:sticky;top:0;z-index:5;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 header .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
 header img{height:46px;width:46px}
@@ -71,7 +81,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 <body>
 <header><div class="wrap">
  <a href="#" aria-label="Kadha home"><img src="img/logo.svg" alt="Kadha logo"></a>
- <a class="btn ghost" href="#join">Join the list</a>
+ <div class="hdr-r">
+  <button class="lang" id="lang" type="button" aria-label="Read in Malayalam">മലയാളം</button>
+  <a class="btn ghost" href="#join">Join the list</a>
+ </div>
 </div></header>
 
 <main>
@@ -149,12 +162,66 @@ const f = document.getElementById("f"), note = document.getElementById("note");
 f.addEventListener("submit", async e => {
   e.preventDefault();
   const email = f.email.value.trim();
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { note.textContent = "Please enter a valid email."; return; }
-  if (!FORM_ACTION || !EMAIL_FIELD) { note.textContent = "The list opens very soon. Please check back in a few days."; return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { note.textContent = msg("bad"); return; }
+  if (!FORM_ACTION || !EMAIL_FIELD) { note.textContent = msg("soon"); return; }
   const body = new FormData(); body.append(EMAIL_FIELD, email);
   try { await fetch(FORM_ACTION, { method: "POST", mode: "no-cors", body }); } catch (_) {}
-  f.reset(); note.textContent = "You're on the list. We'll write when Drop 01 opens.";
+  f.reset(); note.textContent = msg("ok");
 });
+
+// ---- Malayalam / English ----
+const MSG = {
+  en: { bad: "Please enter a valid email.", soon: "The list opens very soon. Please check back in a few days.",
+        ok: "You're on the list. We'll write when Drop 01 opens." },
+  ml: { bad: "ശരിയായ ഇമെയിൽ വിലാസം നൽകൂ.", soon: "ലിസ്റ്റ് ഉടൻ തുറക്കും. കുറച്ചു ദിവസം കഴിഞ്ഞ് വീണ്ടും നോക്കൂ.",
+        ok: "നിങ്ങൾ ലിസ്റ്റിലുണ്ട്. ഡ്രോപ്പ് 01 തുറക്കുമ്പോൾ ഞങ്ങൾ എഴുതാം." }
+};
+const ML = [
+  [".eyebrow", "ഡ്രോപ്പ് 01 · ഉടൻ വരുന്നു"],
+  ["h1", "കേരളത്തിന്റെ കഥകൾ, <em>നൂലിൽ.</em>"],
+  [".lead", "ഓരോ കഥ ഡിസൈനും തുടങ്ങുന്നത് വീട്ടിൽ പറഞ്ഞുകേട്ട ഒരു കഥയിൽ നിന്നാണ്: ചാത്തന്മാർ, ഒടിയന്മാർ, പോരാളികൾ. അവയെ ഞങ്ങൾ കറുപ്പിൽ തെളിഞ്ഞുനിൽക്കുന്ന എംബ്രോയ്ഡറിയാക്കുന്നു, നമ്പറിട്ട ചെറിയ ബാച്ചുകളായി."],
+  [".hero .btn", "നേരത്തെ അറിയാൻ ചേരൂ"],
+  ["header .btn.ghost", "ലിസ്റ്റിൽ ചേരൂ"],
+  ["figcaption", "ചാത്തൻ · സ്റ്റിച്ച് പ്രിവ്യൂ. ആദ്യ സാമ്പിൾ കേരളത്തിൽ ഇപ്പോൾ തുന്നിക്കൊണ്ടിരിക്കുന്നു."],
+  ["#stories h2", "കഥകൾ"],
+  ["#stories .sub", "ആദ്യ ഡ്രോപ്പിന് ആറ് കഥകൾ. ചിത്രങ്ങൾ സ്റ്റിച്ച് പ്രിവ്യൂകളാണ്; ഓരോന്നും തുന്നിക്കഴിയുമ്പോൾ യഥാർത്ഥ ഫോട്ടോകൾ വരും."],
+  [".card:nth-child(1) p", "മന്ത്രവാദികൾ വിളിച്ചുവരുത്തുന്ന കുട്ടിച്ചാത്തൻ. എവിടെനിന്നോ കല്ലുകൾ വീഴും, തനിയെ തീ കത്തും. നന്നായി നോക്കിയില്ലെങ്കിൽ അവന്റെ കുസൃതി ഒരിക്കലും തീരില്ല."],
+  [".card:nth-child(2) p", "മലബാറിലെ രാത്രികളിൽ രൂപം മാറുന്നവരുണ്ടായിരുന്നു. കാള, പൂച്ച, കുറുക്കൻ... ഒരിക്കലും മനുഷ്യനായല്ല. ഇരുട്ടിയാൽ നാട്ടുകാർ വാതിലടച്ചിരുന്നു."],
+  [".card:nth-child(3) p", "രാത്രി പാലപ്പൂവിന്റെ മണം വന്നാൽ നിൽക്കാതെ നടന്നോളൂ. വെള്ളയുടുത്ത് അവൾ മരച്ചുവട്ടിൽ കാത്തിരിക്കും, വഴിപോക്കനോട് ചുണ്ണാമ്പ് ചോദിക്കും."],
+  [".card:nth-child(4) p", "വടക്കൻ പാട്ടുകളിലെ വീരനായിക. കളരിയിലും ഉറുമിയിലും, വളയുന്ന വാളിൽ, അവളെ വെല്ലാൻ ആരുമില്ല. ഒരിക്കൽ കള്ളന്മാർ അവളെ തടഞ്ഞു. ഒരിക്കൽ മാത്രം."],
+  [".card:nth-child(5) p", "വൃദ്ധനും ഒറ്റയ്ക്കുമായിട്ടും സീതയെ രക്ഷിക്കാൻ അവൻ രാവണനു നേരെ പറന്നു. ചിറകറ്റ് അവൻ വീണത് കൊല്ലത്തെ ഒരു പാറയിൽ. ആ പാറ ഇന്നും അവന്റെ പേരിൽ അറിയപ്പെടുന്നു."],
+  [".card:nth-child(6) p", "ദാരികനെ ആർക്കും തടയാനാകാതെ വന്നപ്പോൾ അഗ്നിയിൽ നിന്ന് അവൾ ഉയർന്നു. എല്ലാ വർഷവും മുടിയേറ്റിലൂടെ കേരളം ഇന്നും ആ കഥ പറയുന്നു."],
+  ["#how h2", "ഒരു കഥ തുന്നിയെടുക്കുന്നത്"],
+  ["#how .sub", "കറുപ്പ് ഒരിക്കലും തുന്നാറില്ല: ഓരോ ഡിസൈനിലെയും രാത്രി തുണി തന്നെയാണ്."],
+  [".steps div:nth-child(1) h3", "കഥ"], [".steps div:nth-child(1) p", "ട്രെൻഡിൽ നിന്നല്ല, കഥയിൽ നിന്നാണ് തുടക്കം."],
+  [".steps div:nth-child(2) h3", "ഡിസൈൻ"], [".steps div:nth-child(2) p", "ആദ്യ വര മുതൽ നൂലിനായി ഒരുക്കിയ, കഥയുടെ സ്വന്തം ഡിസൈൻ."],
+  [".steps div:nth-child(3) h3", "സ്റ്റിച്ച് ഫയൽ"], [".steps div:nth-child(3) p", "ഓരോ നിറവും ദിശയും പാളിയും മുൻകൂട്ടി ആസൂത്രണം ചെയ്യുന്നു. ഒരു പീസിൽ ഏകദേശം 45,000 തുന്നലുകൾ."],
+  [".steps div:nth-child(4) h3", "ബാച്ച്"], [".steps div:nth-child(4) p", "കേരളത്തിൽ തുന്നി, നമ്പറിടുന്നു. തീർന്നാൽ വീണ്ടും ഉണ്ടാക്കില്ല."],
+  ["#join h2", "ഡ്രോപ്പ് 01 ആദ്യം സ്വന്തമാക്കൂ"],
+  ["#join .sub", "നമ്പറിട്ട ചെറിയ ബാച്ചുകൾ. ലിസ്റ്റിലുള്ളവർ ആദ്യം അറിയും, ഇഷ്ടമുള്ള നമ്പർ ആദ്യം തിരഞ്ഞെടുക്കാം."],
+  ["#join button", "ചേരൂ"],
+  ["footer span:first-child", "© 2026 കഥ · കേരളത്തിന്റെ കഥകൾ, നൂലിൽ."]
+];
+const EN = ML.map(([s]) => document.querySelector(s).innerHTML);
+const names = [...document.querySelectorAll(".card h3")].map((h, i) => [h.textContent, document.querySelectorAll(".card .ml")[i].textContent]);
+let lang = "en";
+function msg(k) { return MSG[lang][k]; }
+function setLang(l) {
+  lang = l; document.documentElement.lang = l;
+  ML.forEach(([s, ml], i) => { document.querySelector(s).innerHTML = l === "ml" ? ml : EN[i]; });
+  document.querySelectorAll(".card").forEach((c, i) => {
+    c.querySelector("h3").textContent = names[i][l === "ml" ? 1 : 0];
+    c.querySelector(".ml").textContent = names[i][l === "ml" ? 0 : 1];
+  });
+  const b = document.getElementById("lang");
+  b.textContent = l === "ml" ? "English" : "മലയാളം";
+  b.setAttribute("aria-label", l === "ml" ? "Read in English" : "Read in Malayalam");
+  note.textContent = "";
+  try { localStorage.setItem("kadha-lang", l); } catch (_) {}
+}
+document.getElementById("lang").addEventListener("click", () => setLang(lang === "en" ? "ml" : "en"));
+let saved = null; try { saved = localStorage.getItem("kadha-lang"); } catch (_) {}
+if (saved === "ml" || new URLSearchParams(location.search).get("lang") === "ml") setLang("ml");
 </script>
 </body>
 </html>
