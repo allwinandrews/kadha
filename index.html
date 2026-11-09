@@ -47,8 +47,13 @@ h2{font-size:clamp(34px,5vw,54px);font-weight:600;line-height:1.05;margin-bottom
 .sub{color:var(--mute);max-width:36em;margin-bottom:48px}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
 .card{background:var(--card);border:1px solid var(--line)}
-.card img{width:100%;display:block;aspect-ratio:2/3;object-fit:cover}
-.card>div{padding:20px 20px 24px}
+.card img{width:100%;display:block;aspect-ratio:2/3;object-fit:cover;background:#111}
+.views{display:flex;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.views button{flex:1;background:none;border:0;border-right:1px solid var(--line);color:var(--mute);padding:11px 4px;font:500 13px Inter,"Noto Sans Malayalam",sans-serif;cursor:pointer}
+.views button:last-child{border-right:0}
+.views button[aria-pressed=true]{color:#000;background:var(--ink)}
+.views button:focus-visible{outline:2px solid var(--flame);outline-offset:-2px}
+.card>div:not(.views){padding:20px 20px 24px}
 .card h3{font-size:30px;font-weight:600;line-height:1.1}
 .card .ml{color:var(--mute);font-size:14px;margin-bottom:10px}
 .card p{font-size:15px;color:#cfcac3}
@@ -96,31 +101,31 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   <a class="btn" href="#join">Get early access</a>
  </div>
  <figure>
-  <img src="img/chaathan.jpg" alt="Chaathan embroidery design: a red spirit crouching between two fireballs under a full moon">
-  <figcaption>Chaathan · stitch preview. First sample being made in Kerala now.</figcaption>
+  <img src="img/chaathan-hoodie.jpg" alt="Chaathan embroidery design on the back of a black hoodie on a hanger: a red spirit crouching between two fireballs under a full moon">
+  <figcaption>Chaathan on the back of a hoodie · preview. First sample being made in Kerala now.</figcaption>
  </figure>
 </div>
 
 <section id="stories"><div class="wrap">
  <h2 class="serif">The stories</h2>
- <p class="sub">Six tales for the first drop. Images are stitch previews; real photos replace them as each piece is made.</p>
+ <p class="sub">Six tales for the first drop, stitched big on the back (about 28 × 42 cm). Tap T-shirt or Hoodie to see it on the garment. These are previews; real photos replace them as each piece is made.</p>
  <div class="grid">
-  <article class="card"><img src="img/chaathan.jpg" alt="Chaathan design" loading="lazy"><div>
+  <article class="card" data-d="chaathan"><img src="img/chaathan-hoodie.jpg" alt="Chaathan design on the back of a black hoodie" loading="lazy"><div class="views" role="group" aria-label="View on"><button type="button" data-v="">Design</button><button type="button" data-v="-tee">T-shirt</button><button type="button" data-v="-hoodie" aria-pressed="true">Hoodie</button></div><div>
    <h3 class="serif">Chaathan</h3><div class="ml">ചാത്തൻ</div>
    <p>A child-spirit called by sorcerers. Stones fall from nowhere, fires light themselves. Treat him well, or he plays tricks forever.</p></div></article>
-  <article class="card"><img src="img/odiyan.jpg" alt="Odiyan design" loading="lazy"><div>
+  <article class="card" data-d="odiyan"><img src="img/odiyan-hoodie.jpg" alt="Odiyan design on the back of a black hoodie" loading="lazy"><div class="views" role="group" aria-label="View on"><button type="button" data-v="">Design</button><button type="button" data-v="-tee">T-shirt</button><button type="button" data-v="-hoodie" aria-pressed="true">Hoodie</button></div><div>
    <h3 class="serif">Odiyan</h3><div class="ml">ഒടിയൻ</div>
    <p>In Malabar, the night had shape-shifters. A bull, a cat, a jackal, never a man. Villagers barred their doors after dark.</p></div></article>
-  <article class="card"><img src="img/yakshi.jpg" alt="Yakshi design" loading="lazy"><div>
+  <article class="card" data-d="yakshi"><img src="img/yakshi-hoodie.jpg" alt="Yakshi design on the back of a black hoodie" loading="lazy"><div class="views" role="group" aria-label="View on"><button type="button" data-v="">Design</button><button type="button" data-v="-tee">T-shirt</button><button type="button" data-v="-hoodie" aria-pressed="true">Hoodie</button></div><div>
    <h3 class="serif">Yakshi</h3><div class="ml">യക്ഷി</div>
    <p>If you smell pala flowers at night, keep walking. She waits under the tree in white, and asks a traveller for lime.</p></div></article>
-  <article class="card"><img src="img/unniyarcha.jpg" alt="Unniyarcha design" loading="lazy"><div>
+  <article class="card" data-d="unniyarcha"><img src="img/unniyarcha-hoodie.jpg" alt="Unniyarcha design on the back of a black hoodie" loading="lazy"><div class="views" role="group" aria-label="View on"><button type="button" data-v="">Design</button><button type="button" data-v="-tee">T-shirt</button><button type="button" data-v="-hoodie" aria-pressed="true">Hoodie</button></div><div>
    <h3 class="serif">Unniyarcha</h3><div class="ml">ഉണ്ണിയാർച്ച</div>
    <p>Heroine of the northern ballads, master of kalari and the urumi, the sword that bends. Bandits stopped her once. Only once.</p></div></article>
-  <article class="card"><img src="img/jatayu.jpg" alt="Jatayu design" loading="lazy"><div>
+  <article class="card" data-d="jatayu"><img src="img/jatayu-hoodie.jpg" alt="Jatayu design on the back of a black hoodie" loading="lazy"><div class="views" role="group" aria-label="View on"><button type="button" data-v="">Design</button><button type="button" data-v="-tee">T-shirt</button><button type="button" data-v="-hoodie" aria-pressed="true">Hoodie</button></div><div>
    <h3 class="serif">Jatayu</h3><div class="ml">ജടായു</div>
    <p>Old and alone, he flew at Ravana to save Sita. His wings were cut, and he fell on a rock in Kollam that still carries his name.</p></div></article>
-  <article class="card"><img src="img/kali.jpg" alt="Bhadrakali design" loading="lazy"><div>
+  <article class="card" data-d="kali"><img src="img/kali-hoodie.jpg" alt="Kali design on the back of a black hoodie" loading="lazy"><div class="views" role="group" aria-label="View on"><button type="button" data-v="">Design</button><button type="button" data-v="-tee">T-shirt</button><button type="button" data-v="-hoodie" aria-pressed="true">Hoodie</button></div><div>
    <h3 class="serif">Bhadrakali</h3><div class="ml">ഭദ്രകാളി</div>
    <p>When the demon Darika could not be stopped, she rose from fire. Kerala still re-tells it every year in Mudiyettu.</p></div></article>
  </div>
@@ -169,6 +174,18 @@ f.addEventListener("submit", async e => {
   f.reset(); note.textContent = msg("ok");
 });
 
+
+// ---- view switch: design / tee back / hoodie back ----
+const VL = { en: ["Design", "T-shirt", "Hoodie"], ml: ["ഡിസൈൻ", "ടീ-ഷർട്ട്", "ഹൂഡി"] };
+document.querySelectorAll(".card").forEach(c => {
+  const img = c.querySelector("img"), d = c.dataset.d;
+  c.querySelectorAll(".views button").forEach(b => b.addEventListener("click", () => {
+    c.querySelectorAll(".views button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    img.src = "img/" + d + b.dataset.v + ".jpg";
+  }));
+});
+function viewLabels(l) { document.querySelectorAll(".card").forEach(c => c.querySelectorAll(".views button").forEach((b, i) => b.textContent = VL[l][i])); }
+
 // ---- Malayalam / English ----
 const MSG = {
   en: { bad: "Please enter a valid email.", soon: "The list opens very soon. Please check back in a few days.",
@@ -182,9 +199,9 @@ const ML = [
   [".lead", "ഓരോ കഥ ഡിസൈനും തുടങ്ങുന്നത് വീട്ടിൽ പറഞ്ഞുകേട്ട ഒരു കഥയിൽ നിന്നാണ്: ചാത്തന്മാർ, ഒടിയന്മാർ, പോരാളികൾ. അവയെ ഞങ്ങൾ കറുപ്പിൽ തെളിഞ്ഞുനിൽക്കുന്ന എംബ്രോയ്ഡറിയാക്കുന്നു, നമ്പറിട്ട ചെറിയ ബാച്ചുകളായി."],
   [".hero .btn", "നേരത്തെ അറിയാൻ ചേരൂ"],
   ["header .btn.ghost", "ലിസ്റ്റിൽ ചേരൂ"],
-  ["figcaption", "ചാത്തൻ · സ്റ്റിച്ച് പ്രിവ്യൂ. ആദ്യ സാമ്പിൾ കേരളത്തിൽ ഇപ്പോൾ തുന്നിക്കൊണ്ടിരിക്കുന്നു."],
+  ["figcaption", "ഹൂഡിയുടെ പുറകിൽ ചാത്തൻ · പ്രിവ്യൂ. ആദ്യ സാമ്പിൾ കേരളത്തിൽ ഇപ്പോൾ തുന്നിക്കൊണ്ടിരിക്കുന്നു."],
   ["#stories h2", "കഥകൾ"],
-  ["#stories .sub", "ആദ്യ ഡ്രോപ്പിന് ആറ് കഥകൾ. ചിത്രങ്ങൾ സ്റ്റിച്ച് പ്രിവ്യൂകളാണ്; ഓരോന്നും തുന്നിക്കഴിയുമ്പോൾ യഥാർത്ഥ ഫോട്ടോകൾ വരും."],
+  ["#stories .sub", "ആദ്യ ഡ്രോപ്പിന് ആറ് കഥകൾ, പുറകിൽ വലുതായി തുന്നിയത് (ഏകദേശം 28 × 42 സെ.മീ.). ടീ-ഷർട്ടിലോ ഹൂഡിയിലോ എങ്ങനെയെന്ന് കാണാൻ ടാപ്പ് ചെയ്യൂ. ഇവ പ്രിവ്യൂകളാണ്; ഓരോന്നും തുന്നിക്കഴിയുമ്പോൾ യഥാർത്ഥ ഫോട്ടോകൾ വരും."],
   [".card:nth-child(1) p", "മന്ത്രവാദികൾ വിളിച്ചുവരുത്തുന്ന കുട്ടിച്ചാത്തൻ. എവിടെനിന്നോ കല്ലുകൾ വീഴും, തനിയെ തീ കത്തും. നന്നായി നോക്കിയില്ലെങ്കിൽ അവന്റെ കുസൃതി ഒരിക്കലും തീരില്ല."],
   [".card:nth-child(2) p", "മലബാറിലെ രാത്രികളിൽ രൂപം മാറുന്നവരുണ്ടായിരുന്നു. കാള, പൂച്ച, കുറുക്കൻ... ഒരിക്കലും മനുഷ്യനായല്ല. ഇരുട്ടിയാൽ നാട്ടുകാർ വാതിലടച്ചിരുന്നു."],
   [".card:nth-child(3) p", "രാത്രി പാലപ്പൂവിന്റെ മണം വന്നാൽ നിൽക്കാതെ നടന്നോളൂ. വെള്ളയുടുത്ത് അവൾ മരച്ചുവട്ടിൽ കാത്തിരിക്കും, വഴിപോക്കനോട് ചുണ്ണാമ്പ് ചോദിക്കും."],
@@ -216,6 +233,7 @@ function setLang(l) {
   const b = document.getElementById("lang");
   b.textContent = l === "ml" ? "English" : "മലയാളം";
   b.setAttribute("aria-label", l === "ml" ? "Read in English" : "Read in Malayalam");
+  viewLabels(l);
   note.textContent = "";
   try { localStorage.setItem("kadha-lang", l); } catch (_) {}
 }
