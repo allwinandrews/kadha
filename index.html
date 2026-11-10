@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kadha · Kerala stories, stitched</title>
-<meta name="description" content="Original embroidered designs from Kerala's folklore. Numbered runs. Join the list for Drop 01.">
+<meta name="description" content="Original embroidered designs from Kerala's folklore, gods, warriors and the wild. Numbered runs. Join the list for Drop 01.">
 <meta property="og:title" content="Kadha · Kerala stories, stitched">
 <meta property="og:description" content="Original embroidered designs from Kerala's folklore. Join the list for Drop 01.">
 <meta property="og:image" content="img/chaathan.jpg">
@@ -70,6 +70,13 @@ input[type=email]:focus{outline:2px solid var(--flame);outline-offset:1px}
 .note{color:var(--mute);font-size:13px;margin-top:14px;min-height:1.4em}
 footer{border-top:1px solid var(--line);padding:32px 0;color:var(--mute);font-size:13px}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:-24px 0 8px}
+.chips a{border:1px solid #3a3734;border-radius:99px;padding:7px 14px;font-size:13px;text-decoration:none;color:var(--ink)}
+.chips a:hover{border-color:var(--ink)}
+.series{margin:56px 0 20px;scroll-margin-top:76px}
+.series .st{font-size:clamp(28px,3.6vw,38px);font-weight:600;line-height:1.1}
+.series .sd{color:var(--mute);font-size:15px;margin-top:4px}
+html[lang=ml] .series .st{font-size:clamp(24px,3vw,32px);line-height:1.35}
 @media (max-width:820px){
  .hero{grid-template-columns:1fr;padding-top:40px;padding-bottom:56px;gap:32px}
  .grid{grid-template-columns:1fr 1fr;gap:16px}
@@ -108,26 +115,58 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
 <section id="stories"><div class="wrap">
  <h2 class="serif">The stories</h2>
- <p class="sub">Six tales for the first drop, stitched big on the back (about 28 × 42 cm). Tap T-shirt or Hoodie to see it on the garment. These are previews; real photos replace them as each piece is made.</p>
+ <p class="sub" data-ml="13 ഡിസൈനുകൾ, നാല് പരമ്പരകളിൽ. എല്ലാം പുറകിൽ വലുതായി തുന്നിയത് (ഏകദേശം 28 × 42 സെ.മീ.). ടീ-ഷർട്ടിലോ ഹൂഡിയിലോ എങ്ങനെയെന്ന് കാണാൻ ടാപ്പ് ചെയ്യൂ. ഇവ പ്രിവ്യൂകളാണ്; ഓരോന്നും തുന്നിക്കഴിയുമ്പോൾ യഥാർത്ഥ ഫോട്ടോകൾ വരും.">13 designs in four series, all stitched big on the back (about 28 × 42 cm). Tap T-shirt or Hoodie to see it on the garment. These are previews; real photos replace them as each piece is made.</p>
+ <nav class="chips" aria-label="Series"><a href="#s-spirits" data-ml="രാത്രിയുടെ ആത്മാക്കൾ">Spirits of the Night</a><a href="#s-gods" data-ml="ദൈവങ്ങളും ഇതിഹാസങ്ങളും">Gods &amp; Epics</a><a href="#s-warriors" data-ml="പോരാളികൾ">Warriors</a><a href="#s-wild" data-ml="കാട്">The Wild</a></nav>
+ <div class="series" id="s-spirits"><h3 class="serif st" data-ml="രാത്രിയുടെ ആത്മാക്കൾ">Spirits of the Night</h3><p class="sd" data-ml="ഇരുട്ടിയാൽ മുതിർന്നവർ പേടിപ്പിച്ചു പറഞ്ഞിരുന്നവർ.">The ones the elders warned you about after dark.</p></div>
  <div class="grid">
   <article class="card" data-d="chaathan"><img src="img/chaathan-hoodie.jpg" alt="Chaathan design on the back of a black hoodie" loading="lazy"><div class="views" role="group" aria-label="View on"><button type="button" data-v="">Design</button><button type="button" data-v="-tee">T-shirt</button><button type="button" data-v="-hoodie" aria-pressed="true">Hoodie</button></div><div>
    <h3 class="serif">Chaathan</h3><div class="ml">ചാത്തൻ</div>
-   <p>A child-spirit called by sorcerers. Stones fall from nowhere, fires light themselves. Treat him well, or he plays tricks forever.</p></div></article>
+   <p data-ml="മന്ത്രവാദികൾ വിളിച്ചുവരുത്തുന്ന കുട്ടിച്ചാത്തൻ. എവിടെനിന്നോ കല്ലുകൾ വീഴും, തനിയെ തീ കത്തും. നന്നായി നോക്കിയില്ലെങ്കിൽ അവന്റെ കുസൃതി ഒരിക്കലും തീരില്ല.">A child-spirit called by sorcerers. Stones fall from nowhere, fires light themselves. Treat him well, or he plays tricks forever.</p></div></article>
   <article class="card" data-d="odiyan"><img src="img/odiyan-hoodie.jpg" alt="Odiyan design on the back of a black hoodie" loading="lazy"><div class="views" role="group" aria-label="View on"><button type="button" data-v="">Design</button><button type="button" data-v="-tee">T-shirt</button><button type="button" data-v="-hoodie" aria-pressed="true">Hoodie</button></div><div>
    <h3 class="serif">Odiyan</h3><div class="ml">ഒടിയൻ</div>
-   <p>In Malabar, the night had shape-shifters. A bull, a cat, a jackal, never a man. Villagers barred their doors after dark.</p></div></article>
+   <p data-ml="മലബാറിലെ രാത്രികളിൽ രൂപം മാറുന്നവരുണ്ടായിരുന്നു. കാള, പൂച്ച, കുറുക്കൻ... ഒരിക്കലും മനുഷ്യനായല്ല. ഇരുട്ടിയാൽ നാട്ടുകാർ വാതിലടച്ചിരുന്നു.">In Malabar, the night had shape-shifters. A bull, a cat, a jackal, never a man. Villagers barred their doors after dark.</p></div></article>
   <article class="card" data-d="yakshi"><img src="img/yakshi-hoodie.jpg" alt="Yakshi design on the back of a black hoodie" loading="lazy"><div class="views" role="group" aria-label="View on"><button type="button" data-v="">Design</button><button type="button" data-v="-tee">T-shirt</button><button type="button" data-v="-hoodie" aria-pressed="true">Hoodie</button></div><div>
    <h3 class="serif">Yakshi</h3><div class="ml">യക്ഷി</div>
-   <p>If you smell pala flowers at night, keep walking. She waits under the tree in white, and asks a traveller for lime.</p></div></article>
-  <article class="card" data-d="unniyarcha"><img src="img/unniyarcha-hoodie.jpg" alt="Unniyarcha design on the back of a black hoodie" loading="lazy"><div class="views" role="group" aria-label="View on"><button type="button" data-v="">Design</button><button type="button" data-v="-tee">T-shirt</button><button type="button" data-v="-hoodie" aria-pressed="true">Hoodie</button></div><div>
-   <h3 class="serif">Unniyarcha</h3><div class="ml">ഉണ്ണിയാർച്ച</div>
-   <p>Heroine of the northern ballads, master of kalari and the urumi, the sword that bends. Bandits stopped her once. Only once.</p></div></article>
+   <p data-ml="രാത്രി പാലപ്പൂവിന്റെ മണം വന്നാൽ നിൽക്കാതെ നടന്നോളൂ. വെള്ളയുടുത്ത് അവൾ മരച്ചുവട്ടിൽ കാത്തിരിക്കും, വഴിപോക്കനോട് ചുണ്ണാമ്പ് ചോദിക്കും.">If you smell pala flowers at night, keep walking. She waits under the tree in white, and asks a traveller for lime.</p></div></article>
+ </div>
+ <div class="series" id="s-gods"><h3 class="serif st" data-ml="ദൈവങ്ങളും ഇതിഹാസങ്ങളും">Gods &amp; Epics</h3><p class="sd" data-ml="അഗ്നിയും ഭസ്മവും ചിറകുകളും: വലിയ കഥകൾ.">Fire, ash and wings: the big tales.</p></div>
+ <div class="grid">
+  <article class="card" data-d="kali"><img src="img/kali-hoodie.jpg" alt="Bhadrakali design on the back of a black hoodie" loading="lazy"><div class="views" role="group" aria-label="View on"><button type="button" data-v="">Design</button><button type="button" data-v="-tee">T-shirt</button><button type="button" data-v="-hoodie" aria-pressed="true">Hoodie</button></div><div>
+   <h3 class="serif">Bhadrakali</h3><div class="ml">ഭദ്രകാളി</div>
+   <p data-ml="ദാരികനെ ആർക്കും തടയാനാകാതെ വന്നപ്പോൾ അഗ്നിയിൽ നിന്ന് അവൾ ഉയർന്നു. എല്ലാ വർഷവും മുടിയേറ്റിലൂടെ കേരളം ഇന്നും ആ കഥ പറയുന്നു.">When the demon Darika could not be stopped, she rose from fire. Kerala still re-tells it every year in Mudiyettu.</p></div></article>
+  <article class="card" data-d="shiva"><img src="img/shiva-hoodie.jpg" alt="Shiva design on the back of a black hoodie" loading="lazy"><div class="views" role="group" aria-label="View on"><button type="button" data-v="">Design</button><button type="button" data-v="-tee">T-shirt</button><button type="button" data-v="-hoodie" aria-pressed="true">Hoodie</button></div><div>
+   <h3 class="serif">Shiva</h3><div class="ml">ശിവൻ</div>
+   <p data-ml="ദേഹത്ത് ഭസ്മവും ചുറ്റും പുകയുമായി സംഹാരമൂർത്തി മലമുകളിൽ ധ്യാനത്തിലിരിക്കുന്നു. അവൻ കണ്ണു തുറന്നാൽ ലോകങ്ങൾ അവസാനിക്കുകയും തുടങ്ങുകയും ചെയ്യും.">The destroyer sits still on the mountain, ash on his skin and smoke in the air. When he opens his eyes, worlds end and begin.</p></div></article>
   <article class="card" data-d="jatayu"><img src="img/jatayu-hoodie.jpg" alt="Jatayu design on the back of a black hoodie" loading="lazy"><div class="views" role="group" aria-label="View on"><button type="button" data-v="">Design</button><button type="button" data-v="-tee">T-shirt</button><button type="button" data-v="-hoodie" aria-pressed="true">Hoodie</button></div><div>
    <h3 class="serif">Jatayu</h3><div class="ml">ജടായു</div>
-   <p>Old and alone, he flew at Ravana to save Sita. His wings were cut, and he fell on a rock in Kollam that still carries his name.</p></div></article>
-  <article class="card" data-d="kali"><img src="img/kali-hoodie.jpg" alt="Kali design on the back of a black hoodie" loading="lazy"><div class="views" role="group" aria-label="View on"><button type="button" data-v="">Design</button><button type="button" data-v="-tee">T-shirt</button><button type="button" data-v="-hoodie" aria-pressed="true">Hoodie</button></div><div>
-   <h3 class="serif">Bhadrakali</h3><div class="ml">ഭദ്രകാളി</div>
-   <p>When the demon Darika could not be stopped, she rose from fire. Kerala still re-tells it every year in Mudiyettu.</p></div></article>
+   <p data-ml="വൃദ്ധനും ഒറ്റയ്ക്കുമായിട്ടും സീതയെ രക്ഷിക്കാൻ അവൻ രാവണനു നേരെ പറന്നു. ചിറകറ്റ് അവൻ വീണത് കൊല്ലത്തെ ഒരു പാറയിൽ. ആ പാറ ഇന്നും അവന്റെ പേരിൽ അറിയപ്പെടുന്നു.">Old and alone, he flew at Ravana to save Sita. His wings were cut, and he fell on a rock in Kollam that still carries his name.</p></div></article>
+ </div>
+ <div class="series" id="s-warriors"><h3 class="serif st" data-ml="പോരാളികൾ">Warriors</h3><p class="sd" data-ml="കളരിയും വടക്കൻ പാട്ടുകളും, തല കുനിക്കാത്തവരും.">Kalari, ballads, and people who would not bow.</p></div>
+ <div class="grid">
+  <article class="card" data-d="unniyarcha"><img src="img/unniyarcha-hoodie.jpg" alt="Unniyarcha design on the back of a black hoodie" loading="lazy"><div class="views" role="group" aria-label="View on"><button type="button" data-v="">Design</button><button type="button" data-v="-tee">T-shirt</button><button type="button" data-v="-hoodie" aria-pressed="true">Hoodie</button></div><div>
+   <h3 class="serif">Unniyarcha</h3><div class="ml">ഉണ്ണിയാർച്ച</div>
+   <p data-ml="വടക്കൻ പാട്ടുകളിലെ വീരനായിക. കളരിയിലും ഉറുമിയിലും, വളയുന്ന വാളിൽ, അവളെ വെല്ലാൻ ആരുമില്ല. ഒരിക്കൽ കള്ളന്മാർ അവളെ തടഞ്ഞു. ഒരിക്കൽ മാത്രം.">Heroine of the northern ballads, master of kalari and the urumi, the sword that bends. Bandits stopped her once. Only once.</p></div></article>
+  <article class="card" data-d="chandu"><img src="img/chandu-hoodie.jpg" alt="Chandu design on the back of a black hoodie" loading="lazy"><div class="views" role="group" aria-label="View on"><button type="button" data-v="">Design</button><button type="button" data-v="-tee">T-shirt</button><button type="button" data-v="-hoodie" aria-pressed="true">Hoodie</button></div><div>
+   <h3 class="serif">Chandu</h3><div class="ml">ചന്തു</div>
+   <p data-ml="വടക്കൻ പാട്ടുകളിലെ ചന്തു ചേകവർ. പാട്ടുകളെല്ലാം ചതിയനെന്നു വിളിച്ച പോരാളി. പാട്ടുകൾക്കു തെറ്റിയെന്നു പറയുന്നവരുമുണ്ട്.">Chandu Chekavar of the northern ballads, the warrior every song called a traitor. Some say the songs got it wrong.</p></div></article>
+  <article class="card" data-d="defiance"><img src="img/defiance-hoodie.jpg" alt="Defiance design on the back of a black hoodie" loading="lazy"><div class="views" role="group" aria-label="View on"><button type="button" data-v="">Design</button><button type="button" data-v="-tee">T-shirt</button><button type="button" data-v="-hoodie" aria-pressed="true">Hoodie</button></div><div>
+   <h3 class="serif">Defiance</h3><div class="ml">ചെറുത്തുനിൽപ്പ്</div>
+   <p data-ml="കൊടികളും തോക്കുകളും ഉടമ്പടികളുമായി സാമ്രാജ്യങ്ങൾ കേരളത്തിലെത്തി. ഇവിടെ ചിലർ ഒരിക്കലും തല കുനിച്ചില്ല.">Empires came to Kerala with flags, guns and treaties. Some here never bowed.</p></div></article>
+ </div>
+ <div class="series" id="s-wild"><h3 class="serif st" data-ml="കാട്">The Wild</h3><p class="sd" data-ml="ഞങ്ങളുടെ മൃഗപരമ്പര. ഓരോന്നും നിറത്തിലും കറുപ്പിലും വെളുപ്പിലും.">Our animal series. Each one comes in colour and in black &amp; white.</p></div>
+ <div class="grid">
+  <article class="card" data-d="gorilla"><img src="img/gorilla-hoodie.jpg" alt="Gorilla design on the back of a black hoodie" loading="lazy"><div class="views" role="group" aria-label="View on"><button type="button" data-v="">Design</button><button type="button" data-v="-tee">T-shirt</button><button type="button" data-v="-hoodie" aria-pressed="true">Hoodie</button></div><div>
+   <h3 class="serif">Gorilla</h3><div class="ml">ഗൊറില്ല</div>
+   <p data-ml="ധരിക്കാവുന്ന ഒരു ഗർജ്ജനം. അഞ്ച് തവിട്ടു നിറങ്ങളിൽ ഗൊറില്ല.">A roar you can wear. The gorilla in five shades of brown.</p></div></article>
+  <article class="card" data-d="gorilla-bw"><img src="img/gorilla-bw-hoodie.jpg" alt="Gorilla · BandW design on the back of a black hoodie" loading="lazy"><div class="views" role="group" aria-label="View on"><button type="button" data-v="">Design</button><button type="button" data-v="-tee">T-shirt</button><button type="button" data-v="-hoodie" aria-pressed="true">Hoodie</button></div><div>
+   <h3 class="serif">Gorilla · B&amp;W</h3><div class="ml">ഗൊറില്ല · കറുപ്പും വെളുപ്പും</div>
+   <p data-ml="അതേ ഗർജ്ജനം അഞ്ച് ചാരനിറങ്ങളിൽ, കറുപ്പും വെളുപ്പും ഇഷ്ടമുള്ളവർക്ക്.">The same roar in five greys, for those who keep it black and white.</p></div></article>
+  <article class="card" data-d="wolf"><img src="img/wolf-hoodie.jpg" alt="Wolf design on the back of a black hoodie" loading="lazy"><div class="views" role="group" aria-label="View on"><button type="button" data-v="">Design</button><button type="button" data-v="-tee">T-shirt</button><button type="button" data-v="-hoodie" aria-pressed="true">Hoodie</button></div><div>
+   <h3 class="serif">Wolf</h3><div class="ml">ചെന്നായ</div>
+   <p data-ml="തല ഉയർത്തി, വായ് പിളർന്ന്, ഓരോ രോമവും എഴുന്നുനിൽക്കുന്ന ചെന്നായ. ആമ്പറിലും സ്വർണ്ണത്തിലും.">Head up, jaws wide, every hair standing. The wolf in amber and gold.</p></div></article>
+  <article class="card" data-d="wolf-bw"><img src="img/wolf-bw-hoodie.jpg" alt="Wolf · BandW design on the back of a black hoodie" loading="lazy"><div class="views" role="group" aria-label="View on"><button type="button" data-v="">Design</button><button type="button" data-v="-tee">T-shirt</button><button type="button" data-v="-hoodie" aria-pressed="true">Hoodie</button></div><div>
+   <h3 class="serif">Wolf · B&amp;W</h3><div class="ml">ചെന്നായ · കറുപ്പും വെളുപ്പും</div>
+   <p data-ml="വെള്ളിയിലും ചാരത്തിലും ചെന്നായ, നിലാവില്ലാത്ത രാത്രി പോലെ.">The wolf in silver and grey, like a night without a moon.</p></div></article>
  </div>
 </div></section>
 
@@ -201,13 +240,6 @@ const ML = [
   ["header .btn.ghost", "ലിസ്റ്റിൽ ചേരൂ"],
   ["figcaption", "ഹൂഡിയുടെ പുറകിൽ ചാത്തൻ · പ്രിവ്യൂ. ആദ്യ സാമ്പിൾ കേരളത്തിൽ ഇപ്പോൾ തുന്നിക്കൊണ്ടിരിക്കുന്നു."],
   ["#stories h2", "കഥകൾ"],
-  ["#stories .sub", "ആദ്യ ഡ്രോപ്പിന് ആറ് കഥകൾ, പുറകിൽ വലുതായി തുന്നിയത് (ഏകദേശം 28 × 42 സെ.മീ.). ടീ-ഷർട്ടിലോ ഹൂഡിയിലോ എങ്ങനെയെന്ന് കാണാൻ ടാപ്പ് ചെയ്യൂ. ഇവ പ്രിവ്യൂകളാണ്; ഓരോന്നും തുന്നിക്കഴിയുമ്പോൾ യഥാർത്ഥ ഫോട്ടോകൾ വരും."],
-  [".card:nth-child(1) p", "മന്ത്രവാദികൾ വിളിച്ചുവരുത്തുന്ന കുട്ടിച്ചാത്തൻ. എവിടെനിന്നോ കല്ലുകൾ വീഴും, തനിയെ തീ കത്തും. നന്നായി നോക്കിയില്ലെങ്കിൽ അവന്റെ കുസൃതി ഒരിക്കലും തീരില്ല."],
-  [".card:nth-child(2) p", "മലബാറിലെ രാത്രികളിൽ രൂപം മാറുന്നവരുണ്ടായിരുന്നു. കാള, പൂച്ച, കുറുക്കൻ... ഒരിക്കലും മനുഷ്യനായല്ല. ഇരുട്ടിയാൽ നാട്ടുകാർ വാതിലടച്ചിരുന്നു."],
-  [".card:nth-child(3) p", "രാത്രി പാലപ്പൂവിന്റെ മണം വന്നാൽ നിൽക്കാതെ നടന്നോളൂ. വെള്ളയുടുത്ത് അവൾ മരച്ചുവട്ടിൽ കാത്തിരിക്കും, വഴിപോക്കനോട് ചുണ്ണാമ്പ് ചോദിക്കും."],
-  [".card:nth-child(4) p", "വടക്കൻ പാട്ടുകളിലെ വീരനായിക. കളരിയിലും ഉറുമിയിലും, വളയുന്ന വാളിൽ, അവളെ വെല്ലാൻ ആരുമില്ല. ഒരിക്കൽ കള്ളന്മാർ അവളെ തടഞ്ഞു. ഒരിക്കൽ മാത്രം."],
-  [".card:nth-child(5) p", "വൃദ്ധനും ഒറ്റയ്ക്കുമായിട്ടും സീതയെ രക്ഷിക്കാൻ അവൻ രാവണനു നേരെ പറന്നു. ചിറകറ്റ് അവൻ വീണത് കൊല്ലത്തെ ഒരു പാറയിൽ. ആ പാറ ഇന്നും അവന്റെ പേരിൽ അറിയപ്പെടുന്നു."],
-  [".card:nth-child(6) p", "ദാരികനെ ആർക്കും തടയാനാകാതെ വന്നപ്പോൾ അഗ്നിയിൽ നിന്ന് അവൾ ഉയർന്നു. എല്ലാ വർഷവും മുടിയേറ്റിലൂടെ കേരളം ഇന്നും ആ കഥ പറയുന്നു."],
   ["#how h2", "ഒരു കഥ തുന്നിയെടുക്കുന്നത്"],
   ["#how .sub", "കറുപ്പ് ഒരിക്കലും തുന്നാറില്ല: ഓരോ ഡിസൈനിലെയും രാത്രി തുണി തന്നെയാണ്."],
   [".steps div:nth-child(1) h3", "കഥ"], [".steps div:nth-child(1) p", "ട്രെൻഡിൽ നിന്നല്ല, കഥയിൽ നിന്നാണ് തുടക്കം."],
@@ -219,6 +251,7 @@ const ML = [
   ["#join button", "ചേരൂ"],
   ["footer span:first-child", "© 2026 കഥ · കേരളത്തിന്റെ കഥകൾ, നൂലിൽ."]
 ];
+const DML = [...document.querySelectorAll("[data-ml]")].map(e => [e, e.innerHTML]);
 const EN = ML.map(([s]) => document.querySelector(s).innerHTML);
 const names = [...document.querySelectorAll(".card h3")].map((h, i) => [h.textContent, document.querySelectorAll(".card .ml")[i].textContent]);
 let lang = "en";
@@ -226,6 +259,7 @@ function msg(k) { return MSG[lang][k]; }
 function setLang(l) {
   lang = l; document.documentElement.lang = l;
   ML.forEach(([s, ml], i) => { document.querySelector(s).innerHTML = l === "ml" ? ml : EN[i]; });
+  DML.forEach(([e, en]) => { e.innerHTML = l === "ml" ? e.dataset.ml : en; });
   document.querySelectorAll(".card").forEach((c, i) => {
     c.querySelector("h3").textContent = names[i][l === "ml" ? 1 : 0];
     c.querySelector(".ml").textContent = names[i][l === "ml" ? 0 : 1];
