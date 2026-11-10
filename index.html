@@ -65,8 +65,9 @@ h2{font-size:clamp(34px,5vw,54px);font-weight:600;line-height:1.05;margin-bottom
 .join{text-align:center}
 .join .sub{margin:0 auto 32px}
 form{display:flex;gap:10px;max-width:480px;margin:0 auto;flex-wrap:wrap;justify-content:center}
-input[type=email]{flex:1 1 240px;background:#0d0c0b;border:1px solid #3a3734;color:var(--ink);padding:12px 14px;font:16px Inter;border-radius:2px}
-input[type=email]:focus{outline:2px solid var(--flame);outline-offset:1px}
+input[type=email],input[type=tel]{flex:1 1 240px;background:#0d0c0b;border:1px solid #3a3734;color:var(--ink);padding:12px 14px;font:16px Inter;border-radius:2px}
+input[type=email]:focus,input[type=tel]:focus{outline:2px solid var(--flame);outline-offset:1px}
+.fine{flex-basis:100%;color:var(--mute);font-size:12px}
 .note{color:var(--mute);font-size:13px;margin-top:14px;min-height:1.4em}
 footer{border-top:1px solid var(--line);padding:32px 0;color:var(--mute);font-size:13px}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
@@ -115,8 +116,8 @@ html[lang=ml] .series .st{font-size:clamp(24px,3vw,32px);line-height:1.35}
 
 <section id="stories"><div class="wrap">
  <h2 class="serif">The stories</h2>
- <p class="sub" data-ml="11 ഡിസൈനുകൾ, നാല് പരമ്പരകളിൽ. എല്ലാം പുറകിൽ വലുതായി തുന്നിയത് (ഏകദേശം 28 × 42 സെ.മീ.). ടീ-ഷർട്ടിലോ ഹൂഡിയിലോ എങ്ങനെയെന്ന് കാണാൻ ടാപ്പ് ചെയ്യൂ. ഇവ പ്രിവ്യൂകളാണ്; ഓരോന്നും തുന്നിക്കഴിയുമ്പോൾ യഥാർത്ഥ ഫോട്ടോകൾ വരും.">11 designs in four series, all stitched big on the back (about 28 × 42 cm). Tap T-shirt or Hoodie to see it on the garment. These are previews; real photos replace them as each piece is made.</p>
- <nav class="chips" aria-label="Series"><a href="#s-spirits" data-ml="രാത്രിയുടെ ആത്മാക്കൾ">Spirits of the Night</a><a href="#s-gods" data-ml="ദൈവങ്ങളും ഇതിഹാസങ്ങളും">Gods &amp; Legends</a><a href="#s-cinema" data-ml="വെള്ളിത്തിര">Silver Screen</a><a href="#s-wild" data-ml="കാട്">The Wild</a></nav>
+ <p class="sub" data-ml="12 ഡിസൈനുകൾ, അഞ്ച് പരമ്പരകളിൽ. എല്ലാം പുറകിൽ വലുതായി തുന്നിയത് (ഏകദേശം 28 × 42 സെ.മീ.). ടീ-ഷർട്ടിലോ ഹൂഡിയിലോ എങ്ങനെയെന്ന് കാണാൻ ടാപ്പ് ചെയ്യൂ. ഇവ പ്രിവ്യൂകളാണ്; ഓരോന്നും തുന്നിക്കഴിയുമ്പോൾ യഥാർത്ഥ ഫോട്ടോകൾ വരും.">12 designs in five series, all stitched big on the back (about 28 × 42 cm). Tap T-shirt or Hoodie to see it on the garment. These are previews; real photos replace them as each piece is made.</p>
+ <nav class="chips" aria-label="Series"><a href="#s-spirits" data-ml="രാത്രിയുടെ ആത്മാക്കൾ">Spirits of the Night</a><a href="#s-gods" data-ml="ദൈവങ്ങളും ഇതിഹാസങ്ങളും">Gods &amp; Epics</a><a href="#s-warriors" data-ml="പോരാളികൾ">Warriors</a><a href="#s-cinema" data-ml="വെള്ളിത്തിര">Silver Screen</a><a href="#s-wild" data-ml="കാട്">The Wild</a></nav>
  <div class="series" id="s-spirits"><h3 class="serif st" data-ml="രാത്രിയുടെ ആത്മാക്കൾ">Spirits of the Night</h3><p class="sd" data-ml="ഇരുട്ടിയാൽ മുതിർന്നവർ പേടിപ്പിച്ചു പറഞ്ഞിരുന്നവർ.">The ones the elders warned you about after dark.</p></div>
  <div class="grid">
   <article class="card" data-d="chaathan"><img src="img/chaathan-hoodie.jpg" alt="Chaathan design on the back of a black hoodie" loading="lazy"><div class="views" role="group" aria-label="View on"><button type="button" data-v="">Design</button><button type="button" data-v="-tee">T-shirt</button><button type="button" data-v="-hoodie" aria-pressed="true">Hoodie</button></div><div>
@@ -129,7 +130,7 @@ html[lang=ml] .series .st{font-size:clamp(24px,3vw,32px);line-height:1.35}
    <h3 class="serif">Yakshi</h3><div class="ml">യക്ഷി</div>
    <p data-ml="രാത്രി പാലപ്പൂവിന്റെ മണം വന്നാൽ നിൽക്കാതെ നടന്നോളൂ. വെള്ളയുടുത്ത് അവൾ മരച്ചുവട്ടിൽ കാത്തിരിക്കും, വഴിപോക്കനോട് ചുണ്ണാമ്പ് ചോദിക്കും.">If you smell pala flowers at night, keep walking. She waits under the tree in white, and asks a traveller for lime.</p></div></article>
  </div>
- <div class="series" id="s-gods"><h3 class="serif st" data-ml="ദൈവങ്ങളും ഇതിഹാസങ്ങളും">Gods &amp; Legends</h3><p class="sd" data-ml="അഗ്നിയും ഭസ്മവും ചിറകുകളും, പിന്നെ വളയുന്ന വാളും.">Fire, ash, wings, and a sword that bends.</p></div>
+ <div class="series" id="s-gods"><h3 class="serif st" data-ml="ദൈവങ്ങളും ഇതിഹാസങ്ങളും">Gods &amp; Epics</h3><p class="sd" data-ml="അഗ്നിയും ഭസ്മവും ചിറകുകളും: വലിയ കഥകൾ.">Fire, ash and wings: the big tales.</p></div>
  <div class="grid">
   <article class="card" data-d="kali"><img src="img/kali-hoodie.jpg" alt="Bhadrakali design on the back of a black hoodie" loading="lazy"><div class="views" role="group" aria-label="View on"><button type="button" data-v="">Design</button><button type="button" data-v="-tee">T-shirt</button><button type="button" data-v="-hoodie" aria-pressed="true">Hoodie</button></div><div>
    <h3 class="serif">Bhadrakali</h3><div class="ml">ഭദ്രകാളി</div>
@@ -140,15 +141,21 @@ html[lang=ml] .series .st{font-size:clamp(24px,3vw,32px);line-height:1.35}
   <article class="card" data-d="jatayu"><img src="img/jatayu-hoodie.jpg" alt="Jatayu design on the back of a black hoodie" loading="lazy"><div class="views" role="group" aria-label="View on"><button type="button" data-v="">Design</button><button type="button" data-v="-tee">T-shirt</button><button type="button" data-v="-hoodie" aria-pressed="true">Hoodie</button></div><div>
    <h3 class="serif">Jatayu</h3><div class="ml">ജടായു</div>
    <p data-ml="വൃദ്ധനും ഒറ്റയ്ക്കുമായിട്ടും സീതയെ രക്ഷിക്കാൻ അവൻ രാവണനു നേരെ പറന്നു. ചിറകറ്റ് അവൻ വീണത് കൊല്ലത്തെ ഒരു പാറയിൽ. ആ പാറ ഇന്നും അവന്റെ പേരിൽ അറിയപ്പെടുന്നു.">Old and alone, he flew at Ravana to save Sita. His wings were cut, and he fell on a rock in Kollam that still carries his name.</p></div></article>
+ </div>
+ <div class="series" id="s-warriors"><h3 class="serif st" data-ml="പോരാളികൾ">Warriors</h3><p class="sd" data-ml="കളരിയും വടക്കൻ പാട്ടുകളും, പിന്നെ വളയുന്ന വാളും.">Kalari, the northern ballads, and the sword that bends.</p></div>
+ <div class="grid">
   <article class="card" data-d="unniyarcha"><img src="img/unniyarcha-hoodie.jpg" alt="Unniyarcha design on the back of a black hoodie" loading="lazy"><div class="views" role="group" aria-label="View on"><button type="button" data-v="">Design</button><button type="button" data-v="-tee">T-shirt</button><button type="button" data-v="-hoodie" aria-pressed="true">Hoodie</button></div><div>
    <h3 class="serif">Unniyarcha</h3><div class="ml">ഉണ്ണിയാർച്ച</div>
    <p data-ml="വടക്കൻ പാട്ടുകളിലെ വീരനായിക. കളരിയിലും ഉറുമിയിലും, വളയുന്ന വാളിൽ, അവളെ വെല്ലാൻ ആരുമില്ല. ഒരിക്കൽ കള്ളന്മാർ അവളെ തടഞ്ഞു. ഒരിക്കൽ മാത്രം.">Heroine of the northern ballads, master of kalari and the urumi, the sword that bends. Bandits stopped her once. Only once.</p></div></article>
+  <article class="card" data-d="chandu"><img src="img/chandu-hoodie.jpg" alt="Chandu design on the back of a black hoodie" loading="lazy"><div class="views" role="group" aria-label="View on"><button type="button" data-v="">Design</button><button type="button" data-v="-tee">T-shirt</button><button type="button" data-v="-hoodie" aria-pressed="true">Hoodie</button></div><div>
+   <h3 class="serif">Chandu</h3><div class="ml">ചന്തു</div>
+   <p data-ml="വടക്കൻ പാട്ടുകളിലെ ചന്തു ചേകവർ. പാട്ടുകളെല്ലാം ചതിയനെന്നു വിളിച്ച പോരാളി. പാട്ടുകൾക്കു തെറ്റിയെന്നു പറയുന്നവരുമുണ്ട്.">Chandu Chekavar of the northern ballads, the warrior every song called a traitor. Some say the songs got it wrong.</p></div></article>
  </div>
  <div class="series" id="s-cinema"><h3 class="serif st" data-ml="വെള്ളിത്തിര">Silver Screen</h3><p class="sd" data-ml="എല്ലാവരും ഇന്നും ഏറ്റുപറയുന്ന മലയാള സിനിമയിലെ കഥാപാത്രങ്ങളും ഡയലോഗുകളും.">Malayalam cinema: the characters and lines everyone still quotes.</p></div>
  <div class="grid">
-  <article class="card" data-d="chandu"><img src="img/chandu-hoodie.jpg" alt="Chandu design on the back of a black hoodie" loading="lazy"><div class="views" role="group" aria-label="View on"><button type="button" data-v="">Design</button><button type="button" data-v="-tee">T-shirt</button><button type="button" data-v="-hoodie" aria-pressed="true">Hoodie</button></div><div>
-   <h3 class="serif">Chandu</h3><div class="ml">ചന്തു</div>
-   <p data-ml="പാട്ടുകളെല്ലാം ചതിയനെന്നു വിളിച്ച ചന്തു ചേകവർ. അവന്റെ ഭാഗം പറഞ്ഞത് വെള്ളിത്തിരയാണ്.">Chandu Chekavar, the ballad warrior every song called a traitor, until the big screen told his side.</p></div></article>
+  <article class="card" data-d="spadikam"><img src="img/spadikam-hoodie.jpg" alt="Spadikam design on the back of a black hoodie" loading="lazy"><div class="views" role="group" aria-label="View on"><button type="button" data-v="">Design</button><button type="button" data-v="-tee">T-shirt</button><button type="button" data-v="-hoodie" aria-pressed="true">Hoodie</button></div><div>
+   <h3 class="serif">Spadikam</h3><div class="ml">സ്ഫടികം</div>
+   <p data-ml="ആടുതോമ: കറുത്ത കണ്ണടയും ചുവന്ന ഷർട്ടും, ഒരിക്കലും വിശ്വസിക്കാത്ത ഒരു അപ്പനും. ഓരോ ഡയലോഗും കേരളത്തിന് ഇന്നും മനഃപാഠം.">Aadu Thoma: dark glasses, a red shirt, and a father who never believed in him. Kerala still knows every line.</p></div></article>
   <article class="card" data-d="defiance"><img src="img/defiance-hoodie.jpg" alt="Karnan Napoleon Bhagat Singh design on the back of a black hoodie" loading="lazy"><div class="views" role="group" aria-label="View on"><button type="button" data-v="">Design</button><button type="button" data-v="-tee">T-shirt</button><button type="button" data-v="-hoodie" aria-pressed="true">Hoodie</button></div><div>
    <h3 class="serif">Karnan Napoleon Bhagat Singh</h3><div class="ml">കർണൻ നെപ്പോളിയൻ ഭഗത് സിംഗ്</div>
    <p data-ml="മലയാളികൾ ഇന്നും ഏറ്റുപറയുന്ന ഒരു ഡയലോഗിലെ മൂന്ന് പേരുകൾ. ഒരു പോരാളി, ഒരു ചക്രവർത്തി, ഒരു വിപ്ലവകാരി: ഓരോരുത്തരും ഒരു യുദ്ധം തോറ്റു, ആരും കഥ തോറ്റില്ല.">Three names from a line Malayalis still quote. A warrior, an emperor, a rebel: each lost a battle, none lost the story.</p></div></article>
@@ -180,7 +187,9 @@ html[lang=ml] .series .st{font-size:clamp(24px,3vw,32px);line-height:1.35}
  <p class="sub">Small numbered runs. The list hears first, and gets first pick of the numbers.</p>
  <form id="f" novalidate>
   <input type="email" name="email" placeholder="your@email.com" aria-label="Email address" required>
+  <input type="tel" name="wa" id="wa" placeholder="WhatsApp (optional) e.g. +91 98765 43210" aria-label="WhatsApp number, optional" autocomplete="tel" inputmode="tel" hidden>
   <button class="btn" type="submit">Join</button>
+  <p class="fine" id="wa-note" hidden>Add WhatsApp to get drop alerts there too. No spam, and you can ask us to stop any time.</p>
  </form>
  <p class="note" id="note" role="status"></p>
 </div></section>
@@ -196,13 +205,18 @@ html[lang=ml] .series .st{font-size:clamp(24px,3vw,32px);line-height:1.35}
 // Fill these two in once the form exists: the form's formResponse URL and the email field's entry id.
 const FORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLSeVVU_QGI4IC30cDmyGO6EGI-Rv_2X-Q1X5znqihFl99HjV4w/formResponse";
 const EMAIL_FIELD = "entry.125204281";
+const WA_FIELD = "";   // entry id of the form's optional "WhatsApp number" question; field stays hidden until set
+if (WA_FIELD) { document.getElementById("wa").hidden = false; document.getElementById("wa-note").hidden = false; }
 const f = document.getElementById("f"), note = document.getElementById("note");
 f.addEventListener("submit", async e => {
   e.preventDefault();
   const email = f.email.value.trim();
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { note.textContent = msg("bad"); return; }
   if (!FORM_ACTION || !EMAIL_FIELD) { note.textContent = msg("soon"); return; }
+  const wa = f.wa.value.trim().replace(/[\s()-]/g, "");
+  if (WA_FIELD && wa && !/^\+?\d{8,15}$/.test(wa)) { note.textContent = msg("badwa"); return; }
   const body = new FormData(); body.append(EMAIL_FIELD, email);
+  if (WA_FIELD && wa) body.append(WA_FIELD, wa);
   try { await fetch(FORM_ACTION, { method: "POST", mode: "no-cors", body }); } catch (_) {}
   f.reset(); note.textContent = msg("ok");
 });
@@ -221,9 +235,9 @@ function viewLabels(l) { document.querySelectorAll(".card").forEach(c => c.query
 
 // ---- Malayalam / English ----
 const MSG = {
-  en: { bad: "Please enter a valid email.", soon: "The list opens very soon. Please check back in a few days.",
+  en: { badwa: "Please check the WhatsApp number (with country code, e.g. +91).", bad: "Please enter a valid email.", soon: "The list opens very soon. Please check back in a few days.",
         ok: "You're on the list. We'll write when Drop 01 opens." },
-  ml: { bad: "ശരിയായ ഇമെയിൽ വിലാസം നൽകൂ.", soon: "ലിസ്റ്റ് ഉടൻ തുറക്കും. കുറച്ചു ദിവസം കഴിഞ്ഞ് വീണ്ടും നോക്കൂ.",
+  ml: { badwa: "വാട്ട്സ്ആപ്പ് നമ്പർ പരിശോധിക്കൂ (കൺട്രി കോഡോടെ, ഉദാ. +91).", bad: "ശരിയായ ഇമെയിൽ വിലാസം നൽകൂ.", soon: "ലിസ്റ്റ് ഉടൻ തുറക്കും. കുറച്ചു ദിവസം കഴിഞ്ഞ് വീണ്ടും നോക്കൂ.",
         ok: "നിങ്ങൾ ലിസ്റ്റിലുണ്ട്. ഡ്രോപ്പ് 01 തുറക്കുമ്പോൾ ഞങ്ങൾ എഴുതാം." }
 };
 const ML = [
@@ -243,6 +257,7 @@ const ML = [
   ["#join h2", "ഡ്രോപ്പ് 01 ആദ്യം സ്വന്തമാക്കൂ"],
   ["#join .sub", "നമ്പറിട്ട ചെറിയ ബാച്ചുകൾ. ലിസ്റ്റിലുള്ളവർ ആദ്യം അറിയും, ഇഷ്ടമുള്ള നമ്പർ ആദ്യം തിരഞ്ഞെടുക്കാം."],
   ["#join button", "ചേരൂ"],
+  ["#wa-note", "ഡ്രോപ്പ് അറിയിപ്പുകൾ വാട്ട്സ്ആപ്പിലും കിട്ടാൻ നമ്പർ ചേർക്കൂ. സ്പാം ഇല്ല, എപ്പോൾ വേണമെങ്കിലും നിർത്താൻ പറയാം."],
   ["footer span:first-child", "© 2026 കഥ · കേരളത്തിന്റെ കഥകൾ, നൂലിൽ."]
 ];
 const DML = [...document.querySelectorAll("[data-ml]")].map(e => [e, e.innerHTML]);
@@ -259,6 +274,7 @@ function setLang(l) {
     c.querySelector(".ml").textContent = names[i][l === "ml" ? 0 : 1];
   });
   const b = document.getElementById("lang");
+  document.getElementById("wa").placeholder = l === "ml" ? "വാട്ട്സ്ആപ്പ് (ഇഷ്ടമെങ്കിൽ) ഉദാ. +91 98765 43210" : "WhatsApp (optional) e.g. +91 98765 43210";
   b.textContent = l === "ml" ? "English" : "മലയാളം";
   b.setAttribute("aria-label", l === "ml" ? "Read in English" : "Read in Malayalam");
   viewLabels(l);
