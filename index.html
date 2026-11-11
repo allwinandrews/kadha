@@ -95,7 +95,6 @@ html[lang=ml] .series .st{font-size:clamp(24px,3vw,32px);line-height:1.35}
 <header><div class="wrap">
  <a href="#" aria-label="Kadha home"><img src="img/logo.svg" alt="Kadha logo"></a>
  <div class="hdr-r">
-  <button class="lang" id="lang" type="button" aria-label="Read in Malayalam">മലയാളം</button>
   <a class="btn ghost" href="#join">Join the list</a>
  </div>
 </div></header>
@@ -189,6 +188,7 @@ html[lang=ml] .series .st{font-size:clamp(24px,3vw,32px);line-height:1.35}
 </div></footer>
 
 <script>
+try { localStorage.removeItem("kadha-lang"); } catch (_) {}   // Malayalam switch removed 2026-11-11
 // Waitlist goes to a Google Form you own (responses land in a Google Sheet).
 // Fill these two in once the form exists: the form's formResponse URL and the email field's entry id.
 const FORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLSeVVU_QGI4IC30cDmyGO6EGI-Rv_2X-Q1X5znqihFl99HjV4w/formResponse";
@@ -269,9 +269,6 @@ function setLang(l) {
   note.textContent = "";
   try { localStorage.setItem("kadha-lang", l); } catch (_) {}
 }
-document.getElementById("lang").addEventListener("click", () => setLang(lang === "en" ? "ml" : "en"));
-let saved = null; try { saved = localStorage.getItem("kadha-lang"); } catch (_) {}
-if (saved === "ml" || new URLSearchParams(location.search).get("lang") === "ml") setLang("ml");
 </script>
 </body>
 </html>
