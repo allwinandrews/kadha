@@ -3,33 +3,26 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'none'; form-action 'none'; base-uri 'self'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Kadha · Every story, stitched</title>
-<meta name="description" content="Original embroidered designs from every kind of story: folklore, myth, cinema, legends, the wild and art. Rooted in Kerala. Numbered runs. Join the list for Drop 01.">
+<meta name="description" content="Original embroidered designs from every kind of story: folklore, myth, cinema, legends, the wild and art. Rooted in Kerala. Small numbered runs. Enquire on WhatsApp.">
 <meta property="og:title" content="Kadha · Every story, stitched">
-<meta property="og:description" content="Original embroidered designs from every kind of story. Join the list for Drop 01.">
+<meta property="og:description" content="Original embroidered designs from every kind of story. Enquire on WhatsApp.">
 <meta property="og:image" content="img/chaathan.jpg">
 <link rel="icon" href="img/logo.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&family=Noto+Sans+Malayalam:wght@400;500;600&family=Noto+Serif+Malayalam:wght@500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#000;--ink:#f4f1ec;--mute:#9a958e;--line:#262422;--flame:#f23d1c;--card:#0d0c0b}
+:root{--bg:#000;--ink:#f4f1ec;--mute:#9a958e;--line:#262422;--flame:#f23d1c;--card:#0d0c0b;--wa:#25d366}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font:400 16px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:inherit}
 .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
 .serif{font-family:"Cormorant Garamond","Noto Serif Malayalam",Georgia,serif}
-html[lang=ml] body{font-family:"Noto Sans Malayalam",Inter,system-ui,sans-serif;line-height:1.75}
-html[lang=ml] .serif{font-family:"Noto Serif Malayalam",Georgia,serif}
-html[lang=ml] h1{font-size:clamp(34px,5.2vw,62px);line-height:1.25}
-html[lang=ml] h2{font-size:clamp(28px,4vw,44px);line-height:1.3}
-html[lang=ml] .card h3{font-size:24px}
-html[lang=ml] .steps h3{font-size:21px}
-html[lang=ml] .btn,html[lang=ml] .eyebrow{text-transform:none;letter-spacing:0}
 .hdr-r{display:flex;gap:10px;align-items:center}
-.lang{background:none;border:1px solid #3a3734;color:var(--ink);border-radius:2px;padding:9px 12px;font:500 13px "Noto Sans Malayalam",Inter,sans-serif;cursor:pointer}
-.lang:hover{border-color:var(--ink)}
 header{position:sticky;top:0;z-index:5;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 header .wrap{display:flex;align-items:center;justify-content:space-between;height:76px}
 header img{height:62px;width:auto;display:block}
@@ -48,12 +41,7 @@ h2{font-size:clamp(34px,5vw,54px);font-weight:600;line-height:1.05;margin-bottom
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
 .card{background:var(--card);border:1px solid var(--line)}
 .card img{width:100%;display:block;aspect-ratio:2/3;object-fit:cover;background:#111}
-.views{display:flex;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.views button{flex:1;background:none;border:0;border-right:1px solid var(--line);color:var(--mute);padding:11px 4px;font:500 13px Inter,"Noto Sans Malayalam",sans-serif;cursor:pointer}
-.views button:last-child{border-right:0}
-.views button[aria-pressed=true]{color:#000;background:var(--ink)}
-.views button:focus-visible{outline:2px solid var(--flame);outline-offset:-2px}
-.card>div:not(.views){padding:20px 20px 24px}
+.card>div{padding:20px 20px 24px}
 .card h3{font-size:30px;font-weight:600;line-height:1.1}
 .card .ml{color:var(--mute);font-size:14px}
 .card p{font-size:15px;color:#cfcac3}
@@ -62,32 +50,60 @@ h2{font-size:clamp(34px,5vw,54px);font-weight:600;line-height:1.05;margin-bottom
 .steps div::before{counter-increment:s;content:"0" counter(s);color:var(--flame);font:600 13px Inter;letter-spacing:.1em}
 .steps h3{font-size:26px;font-weight:600;margin:6px 0}
 .steps p{color:var(--mute);font-size:15px}
-.join{text-align:center}
-.join .sub{margin:0 auto 32px}
-form{display:flex;gap:10px;max-width:480px;margin:0 auto;flex-wrap:wrap;justify-content:center}
-input[type=email],input[type=tel]{flex:1 1 240px;background:#0d0c0b;border:1px solid #3a3734;color:var(--ink);padding:12px 14px;font:16px Inter;border-radius:2px}
-input[type=email]:focus,input[type=tel]:focus{outline:2px solid var(--flame);outline-offset:1px}
-.fine{flex-basis:100%;color:var(--mute);font-size:12px}
-.note{color:var(--mute);font-size:13px;margin-top:14px;min-height:1.4em}
 footer{border-top:1px solid var(--line);padding:32px 0;color:var(--mute);font-size:13px}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+.wa-ico{width:18px;height:18px;vertical-align:-4px;margin-right:8px;fill:currentColor}
+.btn.wa{background:var(--wa);color:#04210f}
+.card>div{display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.enq{flex:none;background:none;border:1px solid #3a3734;color:var(--ink);border-radius:2px;padding:8px 12px;font:600 12px Inter,sans-serif;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;white-space:nowrap}
+.enq:hover,.enq:focus-visible{border-color:var(--wa);color:var(--wa);outline:none}
+.enquire{text-align:center}
+.enquire .sub{margin:0 auto 32px}
+.opts{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:900px;margin:0 auto}
+.opt{background:var(--card);border:1px solid var(--line);color:var(--ink);text-align:left;padding:22px 20px;border-radius:2px;cursor:pointer;font:inherit}
+.opt:hover,.opt:focus-visible{border-color:var(--wa);outline:none}
+.opt b{display:block;font:600 24px "Cormorant Garamond",Georgia,serif;margin-bottom:6px}
+.opt span{color:var(--mute);font-size:14px;line-height:1.5}
+dialog{margin:auto;background:#0d0c0b;color:var(--ink);border:1px solid #3a3734;border-radius:4px;padding:0;width:min(460px,calc(100vw - 32px));max-height:calc(100vh - 32px)}
+dialog::backdrop{background:rgba(0,0,0,.75)}
+.dlg{position:relative;padding:24px;display:flex;flex-direction:column;gap:14px}
+.dlg-top{display:flex;gap:14px;align-items:center;padding-right:28px}
+.dlg-top img{width:64px;height:96px;object-fit:cover;border:1px solid var(--line)}
+.dlg-top img[hidden]{display:none}
+.dlg h3{font:600 28px/1.1 "Cormorant Garamond",Georgia,serif}
+.dlg .kicker{color:var(--mute);font-size:13px}
+.lbl{display:block;font-size:13px;color:var(--mute);margin-bottom:6px}
+.preview{background:#062a17;border:1px solid #0e4a2a;border-radius:8px;padding:12px 14px;font-size:14px;line-height:1.5;color:#dff5e6;white-space:pre-wrap;word-break:break-word}
+.dlg textarea{width:100%;min-height:96px;resize:vertical;background:#000;border:1px solid #3a3734;color:var(--ink);padding:10px 12px;font:16px/1.5 Inter,sans-serif;border-radius:2px}
+.dlg textarea:focus{outline:2px solid var(--wa);outline-offset:1px}
+.count{font-size:12px;color:var(--mute);text-align:right;margin-top:-8px}
+.dlg-act{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+.dlg-act .btn{flex:1 1 auto;text-align:center}
+.dlg-act .btn.ghost{flex:0 0 auto;padding:12px 18px;font-size:13px}
+.x{position:absolute;top:10px;right:12px;background:none;border:0;color:var(--mute);font-size:28px;line-height:1;cursor:pointer;padding:4px 8px}
+.x:hover{color:var(--ink)}
+.fab{display:none}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:-24px 0 8px}
 .chips a{border:1px solid #3a3734;border-radius:99px;padding:7px 14px;font-size:13px;text-decoration:none;color:var(--ink)}
 .chips a:hover{border-color:var(--ink)}
 .series{margin:56px 0 20px;scroll-margin-top:92px}
 .series .st{font-size:clamp(28px,3.6vw,38px);font-weight:600;line-height:1.1}
 .series .sd{color:var(--mute);font-size:15px;margin-top:4px}
-html[lang=ml] .series .st{font-size:clamp(24px,3vw,32px);line-height:1.35}
 @media (max-width:820px){
  .hero{grid-template-columns:1fr;padding-top:40px;padding-bottom:56px;gap:32px}
  .grid{grid-template-columns:1fr 1fr;gap:16px}
  .steps{grid-template-columns:1fr 1fr}
+ .opts{grid-template-columns:1fr 1fr}
  section{padding:56px 0}
 }
 @media (max-width:520px){
  .wrap{padding-left:16px;padding-right:16px}
  .grid{grid-template-columns:1fr}
  .steps{grid-template-columns:1fr}
+ .fab{display:flex;position:fixed;right:16px;bottom:16px;z-index:6;width:56px;height:56px;border-radius:50%;background:var(--wa);color:#04210f;border:0;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,.5);cursor:pointer}
+ .fab .wa-ico{width:28px;height:28px;margin:0}
+ footer{padding-bottom:88px}
 }
 </style>
 </head>
@@ -95,17 +111,16 @@ html[lang=ml] .series .st{font-size:clamp(24px,3vw,32px);line-height:1.35}
 <header><div class="wrap">
  <a href="#" aria-label="Kadha home"><picture><source srcset="img/wordmark.webp" type="image/webp"><img src="img/wordmark.png" alt="Kadha" width="78" height="62"></picture></a>
  <div class="hdr-r">
-  <a class="btn ghost" href="#join">Join the list</a>
+  <a class="btn ghost" href="#enquire">Enquire</a>
  </div>
 </div></header>
 
 <main>
 <div class="wrap hero">
  <div>
-  <div class="eyebrow">Drop 01 · coming soon</div>
   <h1 class="serif">Every story, <em>stitched.</em></h1>
   <p class="lead">Kadha means story in Malayalam. We started with the tales we grew up with in Kerala, and we don't stop there: folklore, myth, cinema, legends, the wild, great art, any story worth wearing. Each one becomes bold embroidery on black, in small numbered runs.</p>
-  <a class="btn" href="#join">Get early access</a>
+  <div class="hero-cta"><a class="btn" href="#stories">Explore the stories</a><button class="btn wa" type="button" data-topic="general"><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1.1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.6-.3z"/></svg>Enquire on WhatsApp</button></div>
  </div>
  <figure>
   <img src="img/chaathan.jpg" alt="Chaathan embroidery design: a red spirit crouching between two fireballs under a full moon">
@@ -161,18 +176,30 @@ html[lang=ml] .series .st{font-size:clamp(24px,3vw,32px);line-height:1.35}
  </div>
 </div></section>
 
-<section id="join" class="join"><div class="wrap">
- <h2 class="serif">Get Drop 01 first</h2>
- <p class="sub">Small numbered runs. The list hears first, and gets first pick of the numbers.</p>
- <form id="f" novalidate>
-  <input type="email" name="email" placeholder="your@email.com" aria-label="Email address" required>
-  <input type="tel" name="wa" id="wa" placeholder="WhatsApp (optional) e.g. +91 98765 43210" aria-label="WhatsApp number, optional" autocomplete="tel" inputmode="tel" hidden>
-  <button class="btn" type="submit">Join</button>
-  <p class="fine" id="wa-note" hidden>Add WhatsApp to get drop alerts there too. No spam, and you can ask us to stop any time.</p>
- </form>
- <p class="note" id="note" role="status"></p>
+<section id="enquire" class="enquire"><div class="wrap">
+ <h2 class="serif">Have a story in mind?</h2>
+ <p class="sub">Tap one and WhatsApp opens with your message ready. Add anything you like before sending.</p>
+ <div class="opts">
+  <button class="opt" type="button" data-topic="custom"><b>Custom design</b><span>Your own story, character or idea, made into a Kadha piece.</span></button>
+  <button class="opt" type="button" data-topic="gift"><b>Gift</b><span>A piece for someone special, or a gift order.</span></button>
+  <button class="opt" type="button" data-topic="collab"><b>Collaboration</b><span>Creators, artists, shops and brands.</span></button>
+  <button class="opt" type="button" data-topic="other"><b>Other</b><span>Something else on your mind? Ask us anything.</span></button>
+ </div>
 </div></section>
 </main>
+
+<button class="fab" type="button" data-topic="general" aria-label="Enquire on WhatsApp"><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1.1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.6-.3z"/></svg></button>
+
+<dialog id="dlg" aria-labelledby="dlg-title">
+ <div class="dlg">
+  <button class="x" type="button" id="dlg-x" aria-label="Close">&times;</button>
+  <div class="dlg-top"><img id="dlg-img" alt="" hidden><div><div class="kicker" id="dlg-kicker">Enquiry</div><h3 id="dlg-title">Enquire</h3></div></div>
+  <div><span class="lbl">Your message</span><div class="preview" id="dlg-msg"></div></div>
+  <div><label class="lbl" for="dlg-extra">Anything else? (optional)</label><textarea id="dlg-extra" maxlength="500" placeholder="Size, colour, questions, your idea..."></textarea></div>
+  <div class="count"><span id="dlg-n">0</span>/500</div>
+  <div class="dlg-act"><button class="btn ghost" type="button" id="dlg-cancel">Cancel</button><button class="btn wa" type="button" id="dlg-send"><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1.1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.6-.3z"/></svg>Send on WhatsApp</button></div>
+ </div>
+</dialog>
 
 <footer><div class="wrap">
  <span>© 2026 Kadha · Every story, stitched.</span>
@@ -180,87 +207,66 @@ html[lang=ml] .series .st{font-size:clamp(24px,3vw,32px);line-height:1.35}
 </div></footer>
 
 <script>
-try { localStorage.removeItem("kadha-lang"); } catch (_) {}   // Malayalam switch removed 2026-11-11
-// Waitlist goes to a Google Form you own (responses land in a Google Sheet).
-// Fill these two in once the form exists: the form's formResponse URL and the email field's entry id.
-const FORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLSeVVU_QGI4IC30cDmyGO6EGI-Rv_2X-Q1X5znqihFl99HjV4w/formResponse";
-const EMAIL_FIELD = "entry.125204281";
-const WA_FIELD = "";   // entry id of the form's optional "WhatsApp number" question; field stays hidden until set
-if (WA_FIELD) { document.getElementById("wa").hidden = false; document.getElementById("wa-note").hidden = false; }
-const f = document.getElementById("f"), note = document.getElementById("note");
-f.addEventListener("submit", async e => {
-  e.preventDefault();
-  const email = f.email.value.trim();
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { note.textContent = msg("bad"); return; }
-  if (!FORM_ACTION || !EMAIL_FIELD) { note.textContent = msg("soon"); return; }
-  const wa = f.wa.value.trim().replace(/[\s()-]/g, "");
-  if (WA_FIELD && wa && !/^\+?\d{8,15}$/.test(wa)) { note.textContent = msg("badwa"); return; }
-  const body = new FormData(); body.append(EMAIL_FIELD, email);
-  if (WA_FIELD && wa) body.append(WA_FIELD, wa);
-  try { await fetch(FORM_ACTION, { method: "POST", mode: "no-cors", body }); } catch (_) {}
-  f.reset(); note.textContent = msg("ok");
-});
+// WhatsApp enquiries. Nothing is stored or sent to this site: the visitor's own WhatsApp opens with the text filled in.
+// The number is assembled only on click and never written into the page as a link, keeping it from simple scrapers.
+(function () {
+  const P = ["44", "7407", "488", "379"];
+  const MAX = 500;
+  const TOPICS = {
+    general: { title: "Say hello", msg: "Hi Kadha! I'd like to know more about your designs." },
+    custom:  { title: "Custom design", msg: "Hi Kadha! I'd like a custom design made from my own story or idea." },
+    gift:    { title: "Gift", msg: "Hi Kadha! I'd like a Kadha piece as a gift." },
+    collab:  { title: "Collaboration", msg: "Hi Kadha! I'd like to talk about a collaboration." },
+    other:   { title: "Other", msg: "Hi Kadha! I have a question." }
+  };
+  const $ = id => document.getElementById(id);
+  const dlg = $("dlg"), img = $("dlg-img"), kicker = $("dlg-kicker"), title = $("dlg-title"),
+        msgEl = $("dlg-msg"), extra = $("dlg-extra"), n = $("dlg-n");
+  let base = "", opener = null;
 
-
-// ---- view switch: design / tee back / hoodie back ----
-const VL = { en: ["Design", "T-shirt", "Hoodie"], ml: ["ഡിസൈൻ", "ടീ-ഷർട്ട്", "ഹൂഡി"] };
-document.querySelectorAll(".card").forEach(c => {
-  const img = c.querySelector("img"), d = c.dataset.d;
-  c.querySelectorAll(".views button").forEach(b => b.addEventListener("click", () => {
-    c.querySelectorAll(".views button").forEach(x => x.setAttribute("aria-pressed", x === b));
-    img.src = "img/" + d + b.dataset.v + ".jpg";
-  }));
-});
-function viewLabels(l) { document.querySelectorAll(".card").forEach(c => c.querySelectorAll(".views button").forEach((b, i) => b.textContent = VL[l][i])); }
-
-// ---- Malayalam / English ----
-const MSG = {
-  en: { badwa: "Please check the WhatsApp number (with country code, e.g. +91).", bad: "Please enter a valid email.", soon: "The list opens very soon. Please check back in a few days.",
-        ok: "You're on the list. We'll write when Drop 01 opens." },
-  ml: { badwa: "വാട്ട്സ്ആപ്പ് നമ്പർ പരിശോധിക്കൂ (കൺട്രി കോഡോടെ, ഉദാ. +91).", bad: "ശരിയായ ഇമെയിൽ വിലാസം നൽകൂ.", soon: "ലിസ്റ്റ് ഉടൻ തുറക്കും. കുറച്ചു ദിവസം കഴിഞ്ഞ് വീണ്ടും നോക്കൂ.",
-        ok: "നിങ്ങൾ ലിസ്റ്റിലുണ്ട്. ഡ്രോപ്പ് 01 തുറക്കുമ്പോൾ ഞങ്ങൾ എഴുതാം." }
-};
-const ML = [
-  [".eyebrow", "ഡ്രോപ്പ് 01 · ഉടൻ വരുന്നു"],
-  ["h1", "കേരളത്തിന്റെ കഥകൾ, <em>നൂലിൽ.</em>"],
-  [".lead", "ഓരോ കഥ ഡിസൈനും തുടങ്ങുന്നത് വീട്ടിൽ പറഞ്ഞുകേട്ട ഒരു കഥയിൽ നിന്നാണ്: ചാത്തന്മാർ, ഒടിയന്മാർ, പോരാളികൾ. അവയെ ഞങ്ങൾ കറുപ്പിൽ തെളിഞ്ഞുനിൽക്കുന്ന എംബ്രോയ്ഡറിയാക്കുന്നു, നമ്പറിട്ട ചെറിയ ബാച്ചുകളായി."],
-  [".hero .btn", "നേരത്തെ അറിയാൻ ചേരൂ"],
-  ["header .btn.ghost", "ലിസ്റ്റിൽ ചേരൂ"],
-  ["figcaption", "ചാത്തൻ · സ്റ്റിച്ച് പ്രിവ്യൂ."],
-  ["#stories h2", "കഥകൾ"],
-  ["#how h2", "ഒരു കഥ തുന്നിയെടുക്കുന്നത്"],
-  ["#how .sub", "കറുപ്പ് ഒരിക്കലും തുന്നാറില്ല: ഓരോ ഡിസൈനിലെയും രാത്രി തുണി തന്നെയാണ്."],
-  [".steps div:nth-child(1) h3", "കഥ"], [".steps div:nth-child(1) p", "ട്രെൻഡിൽ നിന്നല്ല, കഥയിൽ നിന്നാണ് തുടക്കം."],
-  [".steps div:nth-child(2) h3", "ഡിസൈൻ"], [".steps div:nth-child(2) p", "ആദ്യ വര മുതൽ നൂലിനായി ഒരുക്കിയ, കഥയുടെ സ്വന്തം ഡിസൈൻ."],
-  [".steps div:nth-child(3) h3", "സ്റ്റിച്ച് ഫയൽ"], [".steps div:nth-child(3) p", "ഓരോ നിറവും ദിശയും പാളിയും മുൻകൂട്ടി ആസൂത്രണം ചെയ്യുന്നു. ഒരു പീസിൽ ഏകദേശം 45,000 തുന്നലുകൾ."],
-  [".steps div:nth-child(4) h3", "ബാച്ച്"], [".steps div:nth-child(4) p", "കേരളത്തിൽ തുന്നി, നമ്പറിടുന്നു. തീർന്നാൽ വീണ്ടും ഉണ്ടാക്കില്ല."],
-  ["#join h2", "ഡ്രോപ്പ് 01 ആദ്യം സ്വന്തമാക്കൂ"],
-  ["#join .sub", "നമ്പറിട്ട ചെറിയ ബാച്ചുകൾ. ലിസ്റ്റിലുള്ളവർ ആദ്യം അറിയും, ഇഷ്ടമുള്ള നമ്പർ ആദ്യം തിരഞ്ഞെടുക്കാം."],
-  ["#join button", "ചേരൂ"],
-  ["#wa-note", "ഡ്രോപ്പ് അറിയിപ്പുകൾ വാട്ട്സ്ആപ്പിലും കിട്ടാൻ നമ്പർ ചേർക്കൂ. സ്പാം ഇല്ല, എപ്പോൾ വേണമെങ്കിലും നിർത്താൻ പറയാം."],
-  ["footer span:first-child", "© 2026 കഥ · കേരളത്തിന്റെ കഥകൾ, നൂലിൽ."]
-];
-const DML = [...document.querySelectorAll("[data-ml]")].map(e => [e, e.innerHTML]);
-const EN = ML.map(([s]) => document.querySelector(s).innerHTML);
-const names = [...document.querySelectorAll(".card h3")].map((h, i) => [h.textContent, document.querySelectorAll(".card .ml")[i].textContent]);
-let lang = "en";
-function msg(k) { return MSG[lang][k]; }
-function setLang(l) {
-  lang = l; document.documentElement.lang = l;
-  ML.forEach(([s, ml], i) => { document.querySelector(s).innerHTML = l === "ml" ? ml : EN[i]; });
-  DML.forEach(([e, en]) => { e.innerHTML = l === "ml" ? e.dataset.ml : en; });
-  document.querySelectorAll(".card").forEach((c, i) => {
-    c.querySelector("h3").textContent = names[i][l === "ml" ? 1 : 0];
-    c.querySelector(".ml").textContent = names[i][l === "ml" ? 0 : 1];
+  document.querySelectorAll(".card").forEach(card => {
+    const box = card.querySelector(":scope > div");
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "enq"; b.textContent = "Enquire";
+    b.setAttribute("aria-label", "Enquire about " + card.querySelector("h3").textContent + " on WhatsApp");
+    b.addEventListener("click", () => openDesign(card, b));
+    box.appendChild(b);
   });
-  const b = document.getElementById("lang");
-  document.getElementById("wa").placeholder = l === "ml" ? "വാട്ട്സ്ആപ്പ് (ഇഷ്ടമെങ്കിൽ) ഉദാ. +91 98765 43210" : "WhatsApp (optional) e.g. +91 98765 43210";
-  b.textContent = l === "ml" ? "English" : "മലയാളം";
-  b.setAttribute("aria-label", l === "ml" ? "Read in English" : "Read in Malayalam");
-  viewLabels(l);
-  note.textContent = "";
-  try { localStorage.setItem("kadha-lang", l); } catch (_) {}
-}
+  document.querySelectorAll("[data-topic]").forEach(b => b.addEventListener("click", () => openTopic(b.dataset.topic, b)));
+
+  function seriesOf(card) {
+    const el = card.closest(".grid").previousElementSibling;
+    return el && el.classList.contains("series") ? el.textContent.trim() : "";
+  }
+  function openDesign(card, from) {
+    const name = card.querySelector("h3").textContent.trim(), series = seriesOf(card);
+    img.src = card.querySelector("img").getAttribute("src"); img.hidden = false;
+    kicker.textContent = series || "Design"; title.textContent = name;
+    show("Hi Kadha! I'm interested in the " + name + " design" + (series ? " (" + series + ")" : "") + ".", from);
+  }
+  function openTopic(key, from) {
+    const t = TOPICS[key] || TOPICS.general;
+    img.hidden = true; img.removeAttribute("src");
+    kicker.textContent = "Enquiry"; title.textContent = t.title;
+    show(t.msg, from);
+  }
+  function show(m, from) { base = m; opener = from; extra.value = ""; render(); dlg.showModal(); extra.focus(); }
+  function clean(t) { return t.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, "").slice(0, MAX).trim(); }
+  function full() { const e = clean(extra.value); return base + (e ? "\n\n" + e : ""); }
+  function render() { msgEl.textContent = full(); n.textContent = extra.value.length; }
+  function close() { dlg.close(); }
+  extra.addEventListener("input", render);
+  $("dlg-x").addEventListener("click", close);
+  $("dlg-cancel").addEventListener("click", close);
+  dlg.addEventListener("click", e => { if (e.target === dlg) close(); });
+  dlg.addEventListener("close", () => { if (opener) opener.focus(); });
+  $("dlg-send").addEventListener("click", () => {
+    const url = "https://wa.me/" + P.join("") + "?text=" + encodeURIComponent(full());
+    const w = window.open(url, "_blank", "noopener,noreferrer");
+    if (!w) location.href = url;
+    close();
+  });
+})();
 </script>
 </body>
 </html>
