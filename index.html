@@ -103,13 +103,19 @@ body{overflow-x:clip}
 .fan .card{position:absolute;top:5%;left:calc(50% - var(--cw) * 50% + var(--o) * var(--step) * 100%);width:calc(var(--cw) * 100%);margin:0;border:5px solid #222;background:#111;box-shadow:0 14px 34px rgba(0,0,0,.75);cursor:zoom-in;transform:translateY(var(--y)) rotate(var(--r));transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s;-webkit-tap-highlight-color:transparent}
 .fan .card img{border:0}
 .fan .card>div{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;padding:0}
-.fan .card:hover,.fan .card:focus-visible{transform:translateY(calc(var(--y) - 14px)) rotate(calc(var(--r) * .4)) scale(1.04);z-index:9;box-shadow:0 24px 50px rgba(0,0,0,.85);outline:none}
+.fan .card:hover,.fan .card:focus-visible{transform:translateY(calc(var(--y) - 8px)) rotate(var(--r));box-shadow:0 22px 46px rgba(0,0,0,.85);outline:none}
 .fan .card:focus-visible{border-color:var(--ink)}
 .fan .card.opened{visibility:hidden}
 .fan-hint{color:var(--mute);font-size:13px;text-align:center;margin:-6px 0 0}
 @media (max-width:820px){.grid.fan{--cw:.36;--step:.28}}
 dialog.view{width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;background:transparent;color:var(--ink);overflow:hidden}
 dialog.view::backdrop{background:rgba(5,5,5,.94);backdrop-filter:blur(6px)}
+dialog.view[open]::backdrop{animation:vfade .35s ease}
+dialog.view.out::backdrop{animation:vfadeout .4s ease forwards}
+.v-x,.v-nav{transition:opacity .3s}
+dialog.view.out .v-x,dialog.view.out .v-nav{opacity:0}
+@keyframes vfade{from{opacity:0}}
+@keyframes vfadeout{to{opacity:0}}
 .v-stage{position:absolute;inset:0;display:grid;grid-template-columns:minmax(0,1fr) 340px;align-items:center;gap:40px;padding:56px 80px 40px}
 .v-pic{position:relative;height:calc(100dvh - 96px);display:flex;align-items:center;justify-content:center;min-width:0}
 .v-frame{position:relative;flex:none;width:300px;height:450px;overflow:hidden;border:6px solid #222;background:#111;box-shadow:0 30px 80px rgba(0,0,0,.9);cursor:zoom-in;touch-action:pan-y}
@@ -129,7 +135,7 @@ dialog.view.in .v-info{opacity:1;transform:none}
 .v-btn:hover,.v-btn:focus-visible{border-color:var(--ink);outline:none}
 .v-btn[hidden]{display:none}
 .v-x{position:absolute;top:14px;right:16px;z-index:3}
-.v-fly{position:fixed;z-index:2147483647;margin:0;border:6px solid #222;background:#111;box-shadow:0 30px 80px rgba(0,0,0,.9);pointer-events:none;object-fit:cover}
+.v-fly{box-sizing:border-box;position:fixed;z-index:2147483647;margin:0;border:6px solid #222;background:#111;box-shadow:0 30px 80px rgba(0,0,0,.9);pointer-events:none;object-fit:cover}
 @media (max-width:820px){
  .v-stage{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto;gap:16px;padding:60px 16px calc(20px + env(safe-area-inset-bottom))}
  .v-pic{height:auto;min-height:0;align-self:stretch}
@@ -517,16 +523,39 @@ dialog.view.in .v-info{opacity:1;transform:none}
     cs.forEach((c, i) => {
       const o = i - (n - 1) / 2, r = n === 1 ? -3 : o * 7 + (i % 2 ? 1.5 : -1.5);
       c.style.setProperty("--o", o); c.style.setProperty("--r", r + "deg"); c.style.setProperty("--y", Math.abs(o) * 6 + "%");
-      c.style.zIndex = 5 - Math.abs(Math.round(o));
+      c.style.zIndex = 5 - Math.abs(Math.round(o)); c._o = o;
       c.tabIndex = 0; c.setAttribute("role", "button");
       c.setAttribute("aria-label", "Open " + c.querySelector("h3").textContent.trim());
-      c.addEventListener("click", () => open(cs, i));
-      c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(cs, i); } });
+      c.addEventListener("click", () => pick(cs, i));
+      c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(cs, i); } });
     });
+    g._top = 5;
     if (gi === 0) { const h = document.createElement("p"); h.className = "fan-hint"; h.textContent = "Tap a card for a closer look."; g.after(h); }
   });
 
-  let list = [], idx = 0, card = null, zoom = false, ar = 0.678;
+  let list = [], idx = 0, card = null, zoom = false, ar = 0.678, busy = false;
+  const zOf = c => +c.style.zIndex || 0;
+  const raise = c => { const g = c.closest(".grid"); if (zOf(c) < g._top) c.style.zIndex = ++g._top; };
+  // an animation's end, or its planned length plus a margin if the browser pauses it (background tab), whichever comes first
+  const guard = (an, ms) => Promise.race([an.finished.catch(() => {}), new Promise(res => setTimeout(res, ms + 250))]).then(() => { try { an.finish(); } catch (_) {} });
+  function toFront(c) {                                                          // pull a covered card out of the hand and lay it on top
+    const g = c.closest(".grid");
+    if (zOf(c) >= g._top) return Promise.resolve();
+    if (still.matches || !c.animate) { raise(c); return Promise.resolve(); }
+    const cs = getComputedStyle(c), y = cs.getPropertyValue("--y").trim() || "0%", r = parseFloat(cs.getPropertyValue("--r")) || 0;
+    const out = (Math.sign(c._o) || 1) * 14, base = `translate(0px, ${y}) rotate(${r}deg)`;
+    const a = c.animate([
+      { transform: base },
+      { transform: `translate(${out}%, calc(${y} - 30%)) rotate(${r * 0.5}deg) scale(1.06)`, offset: .45 },
+      { transform: base }
+    ], { duration: 560, easing: "cubic-bezier(.45,0,.25,1)" });
+    setTimeout(() => raise(c), 250);                                              // swap layers at the top of the lift, clear of the others
+    return guard(a, 560).then(() => new Promise(res => setTimeout(res, 60)));
+  }
+  function pick(cs, i) {
+    if (busy || view.open) return; busy = true;
+    toFront(cs[i]).then(() => { busy = false; open(cs, i); });
+  }
   const pic = view.querySelector(".v-pic");
   function size() {                                                             // fit the design inside its area, never cropped
     const b = pic.getBoundingClientRect(); if (!b.width || !b.height) return;
@@ -548,43 +577,46 @@ dialog.view.in .v-info{opacity:1;transform:none}
     $("v-prev").hidden = $("v-next").hidden = list.length < 2;
     setZoom(false);
   }
-  function fly(from, to, back) {                                                 // the card lifts off the table into the viewer (and back)
-    if (still.matches || !from.width || !to.width) return Promise.resolve();
+  function cardBox(c) {                                                          // centre, unrotated size and tilt of a card on the table
+    const b = c.getBoundingClientRect();
+    return { x: b.left + b.width / 2, y: b.top + b.height / 2, w: c.offsetWidth, h: c.offsetHeight, r: parseFloat(getComputedStyle(c).getPropertyValue("--r")) || 0 };
+  }
+  function fly(cb, to, back) {                                                   // the card lifts off the table into the viewer (and back)
+    if (still.matches || !cb.w || !to.width || !Element.prototype.animate) return Promise.resolve(null);
     const f = document.createElement("img"); f.className = "v-fly"; f.src = card.querySelector("img").getAttribute("src");
-    Object.assign(f.style, { left: to.left + "px", top: to.top + "px", width: to.width + "px", height: to.height + "px" });
-    (back ? document.body : view).appendChild(f);
-    const r = parseFloat(getComputedStyle(card).getPropertyValue("--r")) || 0;
-    const t = `translate(${from.left - to.left}px, ${from.top - to.top}px) scale(${from.width / to.width}, ${from.height / to.height}) rotate(${r}deg)`;
-    const kf = back ? [{ transform: "none" }, { transform: t }] : [{ transform: t }, { transform: "rotate(-2deg) scale(1.03)", offset: .7 }, { transform: "none" }];
-    f.style.transformOrigin = "0 0";
-    return f.animate(kf, { duration: back ? 380 : 560, easing: "cubic-bezier(.2,.8,.2,1)" }).finished.then(() => f.remove(), () => f.remove());
+    Object.assign(f.style, { left: to.left + "px", top: to.top + "px", width: to.width + "px", height: to.height + "px", transformOrigin: "50% 50%" });
+    view.appendChild(f);
+    const tx = cb.x - (to.left + to.width / 2), ty = cb.y - (to.top + to.height / 2);
+    const t = `translate(${tx}px, ${ty}px) rotate(${cb.r}deg) scale(${cb.w / to.width}, ${cb.h / to.height})`;
+    const kf = back ? [{ transform: "none" }, { transform: t }]
+                    : [{ transform: t }, { transform: `translate(${tx * .06}px, ${ty * .06}px) rotate(-1.5deg) scale(1.025)`, offset: .72 }, { transform: "none" }];
+    const an = f.animate(kf, { duration: back ? 420 : 600, easing: back ? "cubic-bezier(.4,0,.2,1)" : "cubic-bezier(.2,.8,.2,1)" });
+    return guard(an, back ? 420 : 600).then(() => f);
   }
   function open(cs, i) {
     list = cs; idx = i; card = cs[i]; fill(card);
-    view.classList.remove("in"); view.showModal(); size();
-    const from = card.getBoundingClientRect(); card.classList.add("opened");
-    frame.style.visibility = "hidden";
-    requestAnimationFrame(() => {
-      fly(from, frame.getBoundingClientRect(), false).then(() => { frame.style.visibility = ""; });
-      view.classList.add("in");
-    });
+    const cb = cardBox(card);
+    view.classList.remove("in", "out"); view.showModal(); size();
+    card.classList.add("opened"); frame.style.visibility = "hidden";
+    const to = frame.getBoundingClientRect();                                      // reading the layout here makes the dialog's start state stick
+    fly(cb, to, false).then(f => { frame.style.visibility = ""; if (f) f.remove(); });
+    view.classList.add("in");
   }
   function go(d) {
     if (list.length < 2) return;
     card.classList.remove("opened");
-    idx = (idx + d + list.length) % list.length; card = list[idx]; card.classList.add("opened"); fill(card);
+    idx = (idx + d + list.length) % list.length; card = list[idx]; card.classList.add("opened"); raise(card); fill(card);
     if (!still.matches) frame.animate([{ opacity: 0, transform: `translateX(${d * 40}px)` }, { opacity: 1, transform: "none" }], { duration: 300, easing: "ease-out" });
   }
   let closing = false;
   function close(toCard = true) {
     if (closing || !view.open) return; closing = true;
-    const c = card, to = c.getBoundingClientRect(), from = frame.getBoundingClientRect();
-    view.classList.remove("in");
-    const done = () => { c.classList.remove("opened"); closing = false; };
+    const c = card, from = frame.getBoundingClientRect();
+    setZoom(false); view.classList.remove("in");
+    const done = () => { c.classList.remove("opened"); view.classList.remove("out"); closing = false; };
     if (!toCard || still.matches) { view.close(); done(); return; }
-    frame.style.visibility = "hidden";
-    const p = fly(to, from, true);
-    view.close(); p.then(() => { frame.style.visibility = ""; done(); });
+    view.classList.add("out"); frame.style.visibility = "hidden";                 // the backdrop fades while the card flies home
+    fly(cardBox(c), from, true).then(f => { c.classList.remove("opened"); if (f) f.remove(); view.close(); frame.style.visibility = ""; done(); });
   }
   view.addEventListener("cancel", e => { e.preventDefault(); close(); });
   view.addEventListener("close", () => { if (card) { const c = card; c.classList.remove("opened"); setTimeout(() => { if (!document.getElementById("dlg").open) c.focus(); }, 0); } });
