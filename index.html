@@ -386,7 +386,19 @@ dialog.view.in .v-info{opacity:1;transform:none}
 
   // live stitching: every card in the pile starts unstitched (a faint outline); the top card sews its real stitch file (stitches/NAME.kst) in about 8 s, then shows the finished preview
   const SEW_MS = 8000, data = new Map();
-  let cur = null, raf = 0;
+  let cur = null, raf = 0, adv = 0, due = false, seen = true, hover = false;
+  // auto-play: 1 s after a card finishes sewing, the next one is dealt. It waits while the pile is off screen,
+  // the pointer rests on it or a finger is on it, and never runs for people who prefer reduced motion.
+  function advance() {
+    clearTimeout(adv); adv = 0; due = false;
+    if (still.matches) return;
+    if (!seen || hover || id !== null || document.hidden) { due = true; return; }
+    deal(1);
+  }
+  function resume() { if (due && !adv) adv = setTimeout(advance, 1000); }
+  if ("IntersectionObserver" in window) new IntersectionObserver(es => { seen = es[0].isIntersecting; if (seen) resume(); }, { threshold: 0.35 }).observe(deck);
+  deck.addEventListener("pointerenter", e => { if (e.pointerType === "mouse") hover = true; });
+  deck.addEventListener("pointerleave", e => { if (e.pointerType === "mouse") { hover = false; resume(); } });
   const keyOf = c => c.it.src.replace(/^.*\//, "").replace(/\.\w+$/, "");
   function load(c) {
     const k = keyOf(c);
@@ -414,7 +426,7 @@ dialog.view.in .v-info{opacity:1;transform:none}
     return { cols, n: k, f, xs, ys, col, cont };
   }
   function stop() {
-    cancelAnimationFrame(raf); raf = 0;
+    cancelAnimationFrame(raf); raf = 0; clearTimeout(adv); adv = 0; due = false;
     if (cur) { cur.el.classList.remove("sewing", "sewn", "done"); if (cur.cv) cur.cv.remove(); cur.cv = null; }
     cur = null;
   }
@@ -462,6 +474,7 @@ dialog.view.in .v-info{opacity:1;transform:none}
         if (p < 1) { raf = requestAnimationFrame(frame); return; }
         c.el.classList.remove("sewing"); c.el.classList.add("done", "sewn");               // fade the finished preview back in
         setTimeout(() => { if (c.cv === cv) { cv.remove(); c.cv = null; } c.el.classList.remove("sewn"); }, 700);
+        adv = setTimeout(advance, 1000);
         raf = 0;
       }
       raf = requestAnimationFrame(frame);
@@ -506,6 +519,7 @@ dialog.view.in .v-info{opacity:1;transform:none}
     deck.classList.remove("drag");
     if (moved) { if (Math.abs(dx) > deck.clientWidth * 0.18 || fast) deal(Math.sign(dx)); else place(); }
     else if (e.type === "pointerup" && Math.abs(dy) < 10) deal(1);
+    resume();
   }
   deck.addEventListener("pointerup", end); deck.addEventListener("pointercancel", end);
   place();
