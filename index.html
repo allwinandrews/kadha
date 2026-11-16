@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'none'; form-action 'none'; base-uri 'self'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self'; form-action 'none'; base-uri 'self'; object-src 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Kadha · Every story, stitched</title>
 <meta name="description" content="Original embroidered designs from every kind of story: folklore, myth, cinema, legends, the wild and art. Rooted in Kerala. Small numbered runs. Enquire on WhatsApp.">
@@ -102,6 +102,10 @@ body{overflow-x:clip}
 .dcard img{display:block;width:100%;aspect-ratio:2/3;object-fit:cover;pointer-events:none;-webkit-user-drag:none}
 .dcard.top{width:48%;border-color:#2c2c2c}
 .deck.drag .dcard.top,.dcard.instant{transition:none}
+.dcard canvas.sew{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;transition:opacity .6s ease}
+.dcard img{transition:opacity .6s ease}
+.dcard.sewing img{opacity:.1}
+.dcard.sewn canvas.sew{opacity:0}
 .deck-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px}
 .deck-bar figcaption{margin:0}
 .shuf{background:none;border:1px solid var(--line);color:var(--ink);border-radius:2px;padding:8px 14px;font:600 12px Inter,sans-serif;letter-spacing:.05em;text-transform:uppercase;cursor:pointer}
@@ -317,7 +321,95 @@ body{overflow-x:clip}
       c.el.setAttribute("aria-hidden", i === 0 ? "false" : "true");
     });
     cap.textContent = order[0].it.name + " · stitch preview · " + (cards.indexOf(order[0]) + 1) + " of " + n;
+    sew(order[0]);
   }
+
+  // live stitching: the top card sews its real stitch file (stitches/NAME.kst) in about 8 s, then shows the finished preview
+  const SEW_MS = 8000, data = new Map();
+  let cur = null, raf = 0;
+  const keyOf = c => c.it.src.replace(/^.*\//, "").replace(/\.\w+$/, "");
+  function load(c) {
+    const k = keyOf(c);
+    if (!data.has(k)) data.set(k, fetch("stitches/" + k + ".kst").then(r => r.ok ? r.arrayBuffer() : Promise.reject(r.status)).then(parse).catch(() => null));
+    return data.get(k);
+  }
+  function parse(buf) {
+    const v = new DataView(buf); let o = 4;
+    const nc = v.getUint8(o++), cols = [];
+    for (let i = 0; i < nc; i++, o += 3) cols.push(`rgb(${v.getUint8(o)},${v.getUint8(o + 1)},${v.getUint8(o + 2)})`);
+    const n = v.getUint32(o, true); o += 4;
+    const f = [0, 1, 2, 3].map(i => v.getInt16(o + 2 * i, true)); o += 8;
+    // flatten to segments: xs/ys are the stitch end points, from[i] = 1 when the stitch starts at the previous point
+    const xs = new Int16Array(n + 1), ys = new Int16Array(n + 1), col = new Uint8Array(n + 1), cont = new Uint8Array(n + 1);
+    let x = 0, y = 0, ci = 0, k = 0, down = false;
+    while (o < buf.byteLength) {
+      const dx = v.getInt8(o), dy = v.getInt8(o + 1); o += 2;
+      if (dx === -128 && dy === -128) { ci++; down = false; continue; }
+      if (dx === -128) { const ax = v.getInt16(o, true), ay = v.getInt16(o + 2, true); o += 4;
+        if (dy === 0) { x = ax; y = ay; down = false; continue; } x = ax; y = ay; }
+      else { x += dx; y += dy; }
+      xs[k] = x; ys[k] = y; col[k] = ci; cont[k] = down ? 1 : 0; k++; down = true;
+      // the point a pen-up move lands on is the start of the next stitch
+    }
+    return { cols, n: k, f, xs, ys, col, cont };
+  }
+  function stop() {
+    cancelAnimationFrame(raf); raf = 0;
+    if (cur) { cur.el.classList.remove("sewing"); if (cur.cv) cur.cv.remove(); cur.cv = null; }
+    cur = null;
+  }
+  function sew(c) {
+    if (cur === c) return;
+    stop(); cur = c;
+    if (still.matches || !window.fetch) return;
+    const token = c;
+    load(c).then(d => {
+      if (cur !== token || !d || !d.n) return;
+      const im = c.el.querySelector("img");
+      const cv = document.createElement("canvas"); cv.className = "sew"; cv.setAttribute("aria-hidden", "true");
+      c.el.appendChild(cv); c.cv = cv; c.el.classList.add("sewing");
+      const ctx = cv.getContext("2d");
+      let done = 0, t0 = 0, w = 0, h = 0, s = 1, lastX = 0, lastY = 0;
+      function fit() {
+        const dpr = Math.min(2, window.devicePixelRatio || 1), cw = cv.clientWidth, ch = cv.clientHeight;
+        if (!cw || !ch) return false;
+        if (cw * dpr === w && ch * dpr === h) return true;
+        w = cv.width = Math.round(cw * dpr); h = cv.height = Math.round(ch * dpr);
+        // same framing as the <img> (object-fit: cover of the preview, whose frame is d.f)
+        const iw = im.naturalWidth || 720, ih = im.naturalHeight || Math.round(720 * d.f[3] / d.f[2]);
+        const k = Math.max(w / iw, h / ih), ox = (w - iw * k) / 2, oy = (h - ih * k) / 2, u = iw * k / d.f[2];
+        s = u; ctx.setTransform(u, 0, 0, u, ox - d.f[0] * u, oy - d.f[1] * u);
+        ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.lineWidth = Math.max(4, 0.9 / u);
+        ctx.clearRect(d.f[0] - 10, d.f[1] - 10, d.f[2] + 20, d.f[3] + 20);
+        draw(0, done); return true;
+      }
+      function draw(a, b) {
+        let i = a;
+        while (i < b) {
+          const ci = d.col[i]; ctx.strokeStyle = d.cols[ci] || "#ccc"; ctx.beginPath();
+          if (!d.cont[i] || i === a) { const p = i > 0 && d.cont[i] ? i - 1 : i; ctx.moveTo(d.xs[p], d.ys[p]); }
+          for (; i < b && d.col[i] === ci; i++) { if (d.cont[i]) ctx.lineTo(d.xs[i], d.ys[i]); else ctx.moveTo(d.xs[i], d.ys[i]); }
+          ctx.stroke();
+        }
+      }
+      function frame(t) {
+        if (cur !== token) return;
+        if (!t0) t0 = t;
+        if (!fit()) { raf = requestAnimationFrame(frame); return; }
+        const p = Math.min(1, (t - t0) / SEW_MS), to = Math.round(d.n * p);
+        if (to > done) { draw(done, to); done = to; }
+        cap.textContent = c.it.name + " · sewing " + done.toLocaleString() + " of " + d.n.toLocaleString() + " stitches";
+        if (p < 1) { raf = requestAnimationFrame(frame); return; }
+        cap.textContent = c.it.name + " · " + d.n.toLocaleString() + " stitches · " + (cards.indexOf(c) + 1) + " of " + cards.length;
+        c.el.classList.remove("sewing"); c.el.classList.add("sewn");               // fade the finished preview back in
+        setTimeout(() => { if (c.cv === cv) { cv.remove(); c.cv = null; } c.el.classList.remove("sewn"); }, 700);
+        raf = 0;
+      }
+      raf = requestAnimationFrame(frame);
+      load(order[1]);                                                                // fetch the next card's file while this one sews
+    });
+  }
+  document.addEventListener("visibilitychange", () => { if (document.hidden) stop(); else if (!cur) sew(order[0]); });
   function deal(dir) {                 // top card flies off, then slides in at the back of the pile
     const c = order.shift(); order.push(c); pose(c);
     if (!still.matches && dir) {
