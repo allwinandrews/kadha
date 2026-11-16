@@ -149,7 +149,8 @@ dialog.view.in .v-info{opacity:1;transform:none}
 .deck.drag .dcard.top,.dcard.instant{transition:none}
 .dcard canvas.sew{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;transition:opacity .6s ease}
 .dcard img{transition:opacity .6s ease}
-.dcard.sewing img{opacity:.1}
+.deck .dcard img{opacity:.1}
+.deck .dcard.done img{opacity:1}
 .dcard.sewn canvas.sew{opacity:0}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .deck-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px}
@@ -377,7 +378,7 @@ dialog.view.in .v-info{opacity:1;transform:none}
     sew(order[0]);
   }
 
-  // live stitching: the top card sews its real stitch file (stitches/NAME.kst) in about 8 s, then shows the finished preview
+  // live stitching: every card in the pile starts unstitched (a faint outline); the top card sews its real stitch file (stitches/NAME.kst) in about 8 s, then shows the finished preview
   const SEW_MS = 8000, data = new Map();
   let cur = null, raf = 0;
   const keyOf = c => c.it.src.replace(/^.*\//, "").replace(/\.\w+$/, "");
@@ -408,16 +409,17 @@ dialog.view.in .v-info{opacity:1;transform:none}
   }
   function stop() {
     cancelAnimationFrame(raf); raf = 0;
-    if (cur) { cur.el.classList.remove("sewing"); if (cur.cv) cur.cv.remove(); cur.cv = null; }
+    if (cur) { cur.el.classList.remove("sewing", "sewn", "done"); if (cur.cv) cur.cv.remove(); cur.cv = null; }
     cur = null;
   }
   function sew(c) {
     if (cur === c) return;
     stop(); cur = c;
-    if (still.matches || !window.fetch) return;
+    if (still.matches || !window.fetch) { c.el.classList.add("done"); return; }
     const token = c;
     load(c).then(d => {
-      if (cur !== token || !d || !d.n) return;
+      if (cur !== token) return;
+      if (!d || !d.n) { c.el.classList.add("done"); return; }          // no stitch file: just show the design
       const im = c.el.querySelector("img");
       const cv = document.createElement("canvas"); cv.className = "sew"; cv.setAttribute("aria-hidden", "true");
       c.el.appendChild(cv); c.cv = cv; c.el.classList.add("sewing");
@@ -452,7 +454,7 @@ dialog.view.in .v-info{opacity:1;transform:none}
         const p = Math.min(1, (t - t0) / SEW_MS), to = Math.round(d.n * p);
         if (to > done) { draw(done, to); done = to; }
         if (p < 1) { raf = requestAnimationFrame(frame); return; }
-        c.el.classList.remove("sewing"); c.el.classList.add("sewn");               // fade the finished preview back in
+        c.el.classList.remove("sewing"); c.el.classList.add("done", "sewn");               // fade the finished preview back in
         setTimeout(() => { if (c.cv === cv) { cv.remove(); c.cv = null; } c.el.classList.remove("sewn"); }, 700);
         raf = 0;
       }
