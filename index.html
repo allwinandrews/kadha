@@ -76,6 +76,8 @@ dialog::backdrop{background:rgba(0,0,0,.75)}
 .dlg .kicker{color:var(--mute);font-size:13px}
 .lbl{display:block;font-size:13px;color:var(--mute);margin-bottom:6px}
 .preview{background:#062a17;border:1px solid #0e4a2a;border-radius:8px;padding:12px 14px;font-size:14px;line-height:1.5;color:#dff5e6;white-space:pre-wrap;word-break:break-word}
+.dlg select{width:100%;background:#000;border:1px solid #3a3734;color:var(--ink);padding:10px 12px;font:16px/1.4 Inter,sans-serif;border-radius:2px;color-scheme:dark;cursor:pointer}
+.dlg select:focus-visible{outline:none;border-color:var(--ink)}
 .dlg textarea{width:100%;min-height:96px;resize:vertical;background:#000;border:1px solid #3a3734;color:var(--ink);padding:10px 12px;font:16px/1.5 Inter,sans-serif;border-radius:2px}
 .dlg textarea:focus{outline:2px solid var(--wa);outline-offset:1px}
 .count{font-size:12px;color:var(--mute);text-align:right;margin-top:-8px}
@@ -283,6 +285,7 @@ dialog.view.in .v-info{opacity:1;transform:none}
  <div class="dlg">
   <button class="x" type="button" id="dlg-x" aria-label="Close">&times;</button>
   <div class="dlg-top"><img id="dlg-img" alt="" hidden><div><div class="kicker" id="dlg-kicker">Enquiry</div><h3 id="dlg-title">Enquire</h3></div></div>
+  <div><label class="lbl" for="dlg-design">Design</label><select id="dlg-design"><option value="">No specific design</option></select></div>
   <div><span class="lbl">Your message</span><div class="preview" id="dlg-msg"></div></div>
   <div><label class="lbl" for="dlg-extra">Anything else? (optional)</label><textarea id="dlg-extra" maxlength="500" placeholder="Size, colour, questions, your idea..."></textarea></div>
   <div class="count"><span id="dlg-n">0</span>/500</div>
@@ -311,7 +314,19 @@ dialog.view.in .v-info{opacity:1;transform:none}
   const $ = id => document.getElementById(id);
   const dlg = $("dlg"), img = $("dlg-img"), kicker = $("dlg-kicker"), title = $("dlg-title"),
         msgEl = $("dlg-msg"), extra = $("dlg-extra"), n = $("dlg-n");
-  let base = "", opener = null;
+  let base = "", opener = null, topic = null;
+  // the design picker lists every design on the page, grouped by series
+  const pickEl = $("dlg-design"), cardsById = {};
+  document.querySelectorAll("#stories .grid").forEach(g => {
+    const h = g.previousElementSibling, grp = document.createElement("optgroup");
+    grp.label = h && h.classList.contains("series") ? h.textContent.trim() : "Designs";
+    g.querySelectorAll(".card").forEach(c => {
+      const o = document.createElement("option"); o.value = c.dataset.d; o.textContent = c.querySelector("h3").textContent.trim();
+      cardsById[c.dataset.d] = c; grp.appendChild(o);
+    });
+    if (grp.children.length) pickEl.appendChild(grp);
+  });
+  pickEl.addEventListener("change", () => { update(); render(); });
 
   window.kadhaEnquire = (card, from) => openDesign(card, from);
   document.querySelectorAll("[data-topic]").forEach(b => b.addEventListener("click", () => openTopic(b.dataset.topic, b)));
@@ -320,19 +335,23 @@ dialog.view.in .v-info{opacity:1;transform:none}
     const el = card.closest(".grid").previousElementSibling;
     return el && el.classList.contains("series") ? el.textContent.trim() : "";
   }
-  function openDesign(card, from) {
-    const name = card.querySelector("h3").textContent.trim(), series = seriesOf(card);
-    img.src = card.querySelector("img").getAttribute("src"); img.hidden = false;
-    kicker.textContent = series || "Design"; title.textContent = name;
-    show("Hi Kadha! I'm interested in the " + name + " design" + (series ? " (" + series + ")" : "") + ".", from);
+  // opened from a design: that design is picked. Opened from a topic or a general button: nothing is picked until the visitor chooses.
+  function openDesign(card, from) { topic = null; pickEl.value = card.dataset.d || ""; show(from); }
+  function openTopic(key, from) { topic = TOPICS[key] ? key : "general"; pickEl.value = ""; show(from); }
+  function update() {
+    const c = cardsById[pickEl.value], name = c ? c.querySelector("h3").textContent.trim() : "", series = c ? seriesOf(c) : "";
+    const label = c ? name + (series ? " (" + series + ")" : "") : "";
+    if (c) { img.src = c.querySelector("img").getAttribute("src"); img.alt = ""; img.hidden = false; } else { img.hidden = true; img.removeAttribute("src"); }
+    if (topic === null) {                                       // a design enquiry
+      kicker.textContent = c ? series || "Design" : "Enquiry"; title.textContent = c ? name : TOPICS.general.title;
+      base = c ? "Hi Kadha! I'm interested in the " + name + " design" + (series ? " (" + series + ")" : "") + "." : TOPICS.general.msg;
+    } else {                                                    // a topic enquiry, optionally about one design
+      const t = TOPICS[topic];
+      kicker.textContent = "Enquiry"; title.textContent = t.title;
+      base = t.msg + (c ? "\nDesign: " + label : "");
+    }
   }
-  function openTopic(key, from) {
-    const t = TOPICS[key] || TOPICS.general;
-    img.hidden = true; img.removeAttribute("src");
-    kicker.textContent = "Enquiry"; title.textContent = t.title;
-    show(t.msg, from);
-  }
-  function show(m, from) { base = m; opener = from; extra.value = ""; render(); dlg.showModal(); extra.focus(); }
+  function show(from) { opener = from; extra.value = ""; update(); render(); dlg.showModal(); (topic === null ? extra : pickEl).focus(); }
   function clean(t) { return t.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, "").slice(0, MAX).trim(); }
   function full() { const e = clean(extra.value); return base + (e ? "\n\n" + e : ""); }
   function render() { msgEl.textContent = full(); n.textContent = extra.value.length; }
