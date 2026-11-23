@@ -304,17 +304,17 @@ dialog.view.in .v-info{opacity:1;transform:none}
  </div>
  <div class="series" id="s-samurai"><h3 class="serif st" data-ml="സാമുറായി">Samurai</h3></div>
  <div class="grid">
-  <article class="card" data-d="ronin"><img src="img/ronin.jpg?v=3" alt="Ronin embroidery design: a lone samurai in a straw hat drawing his sword in the rain" loading="lazy"><div><h3 class="serif">Ronin</h3><div class="ml">റോണിൻ</div></div></article>
-  <article class="card" data-d="samurai-warlord"><img src="img/samurai-warlord.jpg" alt="Samurai Warlord embroidery design: a red demon mask under a gold crescent helmet" loading="lazy"><div><h3 class="serif">Warlord</h3><div class="ml">യുദ്ധപ്രഭു</div></div></article>
-  <article class="card" data-d="red-sun"><img src="img/red-sun.jpg?v=3" alt="Red Sun embroidery design: a samurai meditating before a red sun" loading="lazy"><div><h3 class="serif">Red Sun</h3><div class="ml">ചുവന്ന സൂര്യൻ</div></div></article>
-  <article class="card" data-d="the-strike"><img src="img/the-strike.jpg?v=3" alt="The Strike embroidery design: a samurai mid-swing through cherry petals" loading="lazy"><div><h3 class="serif">The Strike</h3><div class="ml">വെട്ട്</div></div></article>
+  <article class="card" data-d="ronin"><img src="img/ronin.jpg?v=4" alt="Ronin embroidery design: a lone samurai in a straw hat drawing his sword in the rain" loading="lazy"><div><h3 class="serif">Ronin</h3><div class="ml">റോണിൻ</div></div></article>
+  <article class="card" data-d="samurai-warlord"><img src="img/samurai-warlord.jpg?v=4" alt="Samurai Warlord embroidery design: a red demon mask under a gold crescent helmet" loading="lazy"><div><h3 class="serif">Warlord</h3><div class="ml">യുദ്ധപ്രഭു</div></div></article>
+  <article class="card" data-d="red-sun"><img src="img/red-sun.jpg?v=4" alt="Red Sun embroidery design: a samurai meditating before a red sun" loading="lazy"><div><h3 class="serif">Red Sun</h3><div class="ml">ചുവന്ന സൂര്യൻ</div></div></article>
+  <article class="card" data-d="the-strike"><img src="img/the-strike.jpg?v=4" alt="The Strike embroidery design: a samurai mid-swing through cherry petals" loading="lazy"><div><h3 class="serif">The Strike</h3><div class="ml">വെട്ട്</div></div></article>
  </div>
  <div class="series" id="s-vikings"><h3 class="serif st" data-ml="വൈക്കിംഗ്">Vikings</h3></div>
  <div class="grid">
-  <article class="card" data-d="viking-warlord"><img src="img/viking-warlord.jpg" alt="Viking Warlord embroidery design: a scarred warrior with a wolf skull on his shoulder" loading="lazy"><div><h3 class="serif">Jarl</h3><div class="ml">ജാൾ</div></div></article>
-  <article class="card" data-d="viking-berserker"><img src="img/viking-berserker.jpg" alt="Berserker embroidery design: a warrior in a bear skin charging with two axes" loading="lazy"><div><h3 class="serif">Berserker</h3><div class="ml">ബെർസെർക്കർ</div></div></article>
-  <article class="card" data-d="shieldmaiden"><img src="img/shieldmaiden.jpg" alt="Shieldmaiden embroidery design: a braided warrior with war paint, shield and knife" loading="lazy"><div><h3 class="serif">Shieldmaiden</h3><div class="ml">പരിചക്കാരി</div></div></article>
-  <article class="card" data-d="one-eyed-god"><img src="img/one-eyed-god.jpg" alt="The One-Eyed God embroidery design: an old Norse god with two ravens and a rune spear" loading="lazy"><div><h3 class="serif">The One-Eyed God</h3><div class="ml">ഒറ്റക്കണ്ണൻ</div></div></article>
+  <article class="card" data-d="viking-warlord"><img src="img/viking-warlord.jpg?v=4" alt="Viking Warlord embroidery design: a scarred warrior with a wolf skull on his shoulder" loading="lazy"><div><h3 class="serif">Jarl</h3><div class="ml">ജാൾ</div></div></article>
+  <article class="card" data-d="viking-berserker"><img src="img/viking-berserker.jpg?v=4" alt="Berserker embroidery design: a warrior in a bear skin charging with two axes" loading="lazy"><div><h3 class="serif">Berserker</h3><div class="ml">ബെർസെർക്കർ</div></div></article>
+  <article class="card" data-d="shieldmaiden"><img src="img/shieldmaiden.jpg?v=4" alt="Shieldmaiden embroidery design: a braided warrior with war paint, shield and knife" loading="lazy"><div><h3 class="serif">Shieldmaiden</h3><div class="ml">പരിചക്കാരി</div></div></article>
+  <article class="card" data-d="one-eyed-god"><img src="img/one-eyed-god.jpg?v=4" alt="The One-Eyed God embroidery design: an old Norse god with two ravens and a rune spear" loading="lazy"><div><h3 class="serif">The One-Eyed God</h3><div class="ml">ഒറ്റക്കണ്ണൻ</div></div></article>
  </div>
 </div></section>
 
@@ -596,7 +596,7 @@ dialog.view.in .v-info{opacity:1;transform:none}
   const keyOf = c => c.it.src.replace(/\?.*$/, "").replace(/^.*\//, "").replace(/\.\w+$/, "");
   function load(c) {
     const k = keyOf(c);
-    if (!data.has(k)) data.set(k, fetch("stitches/" + k + ".kst?v=3").then(r => r.ok ? r.arrayBuffer() : Promise.reject(r.status)).then(parse).catch(() => null));
+    if (!data.has(k)) data.set(k, fetch("stitches/" + k + ".kst?v=4").then(r => r.ok ? r.arrayBuffer() : Promise.reject(r.status)).then(parse).catch(() => null));
     return data.get(k);
   }
   function parse(buf) {
@@ -777,7 +777,7 @@ dialog.view.in .v-info{opacity:1;transform:none}
     const im = c.querySelector("img");
     ar = (im.naturalWidth && im.naturalHeight) ? im.naturalWidth / im.naturalHeight : 0.678; size();
     vImg.src = im.getAttribute("src"); vImg.alt = im.alt;                       // the small image shows at once
-    const big = new Image(); big.src = "img/zoom/" + key(c) + "?v=3";
+    const big = new Image(); big.src = "img/zoom/" + key(c) + "?v=4";
     big.onload = () => { if (card === c) vImg.src = big.src; };                  // then the sharp one
     $("v-kicker").textContent = seriesOf(c);
     $("v-name").textContent = c.querySelector("h3").textContent.trim();
