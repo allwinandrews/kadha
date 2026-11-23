@@ -304,10 +304,10 @@ dialog.view.in .v-info{opacity:1;transform:none}
  </div>
  <div class="series" id="s-samurai"><h3 class="serif st" data-ml="സാമുറായി">Samurai</h3></div>
  <div class="grid">
-  <article class="card" data-d="ronin"><img src="img/ronin.jpg" alt="Ronin embroidery design: a lone samurai in a straw hat drawing his sword in the rain" loading="lazy"><div><h3 class="serif">Ronin</h3><div class="ml">റോണിൻ</div></div></article>
+  <article class="card" data-d="ronin"><img src="img/ronin.jpg?v=3" alt="Ronin embroidery design: a lone samurai in a straw hat drawing his sword in the rain" loading="lazy"><div><h3 class="serif">Ronin</h3><div class="ml">റോണിൻ</div></div></article>
   <article class="card" data-d="samurai-warlord"><img src="img/samurai-warlord.jpg" alt="Samurai Warlord embroidery design: a red demon mask under a gold crescent helmet" loading="lazy"><div><h3 class="serif">Warlord</h3><div class="ml">യുദ്ധപ്രഭു</div></div></article>
-  <article class="card" data-d="red-sun"><img src="img/red-sun.jpg" alt="Red Sun embroidery design: a samurai meditating before a red sun" loading="lazy"><div><h3 class="serif">Red Sun</h3><div class="ml">ചുവന്ന സൂര്യൻ</div></div></article>
-  <article class="card" data-d="the-strike"><img src="img/the-strike.jpg" alt="The Strike embroidery design: a samurai mid-swing through cherry petals" loading="lazy"><div><h3 class="serif">The Strike</h3><div class="ml">വെട്ട്</div></div></article>
+  <article class="card" data-d="red-sun"><img src="img/red-sun.jpg?v=3" alt="Red Sun embroidery design: a samurai meditating before a red sun" loading="lazy"><div><h3 class="serif">Red Sun</h3><div class="ml">ചുവന്ന സൂര്യൻ</div></div></article>
+  <article class="card" data-d="the-strike"><img src="img/the-strike.jpg?v=3" alt="The Strike embroidery design: a samurai mid-swing through cherry petals" loading="lazy"><div><h3 class="serif">The Strike</h3><div class="ml">വെട്ട്</div></div></article>
  </div>
  <div class="series" id="s-vikings"><h3 class="serif st" data-ml="വൈക്കിംഗ്">Vikings</h3></div>
  <div class="grid">
@@ -593,10 +593,10 @@ dialog.view.in .v-info{opacity:1;transform:none}
   if ("IntersectionObserver" in window) new IntersectionObserver(es => { seen = es[0].isIntersecting; if (seen) resume(); }, { threshold: 0.35 }).observe(deck);
   deck.addEventListener("pointerenter", e => { if (e.pointerType === "mouse") hover = true; });
   deck.addEventListener("pointerleave", e => { if (e.pointerType === "mouse") { hover = false; resume(); } });
-  const keyOf = c => c.it.src.replace(/^.*\//, "").replace(/\.\w+$/, "");
+  const keyOf = c => c.it.src.replace(/\?.*$/, "").replace(/^.*\//, "").replace(/\.\w+$/, "");
   function load(c) {
     const k = keyOf(c);
-    if (!data.has(k)) data.set(k, fetch("stitches/" + k + ".kst").then(r => r.ok ? r.arrayBuffer() : Promise.reject(r.status)).then(parse).catch(() => null));
+    if (!data.has(k)) data.set(k, fetch("stitches/" + k + ".kst?v=3").then(r => r.ok ? r.arrayBuffer() : Promise.reject(r.status)).then(parse).catch(() => null));
     return data.get(k);
   }
   function parse(buf) {
@@ -772,12 +772,12 @@ dialog.view.in .v-info{opacity:1;transform:none}
   }
   addEventListener("resize", () => { if (view.open) size(); });
   const seriesOf = c => { const el = c.closest(".grid").previousElementSibling; return el && el.classList.contains("series") ? el.textContent.trim() : ""; };
-  const key = c => c.querySelector("img").getAttribute("src").replace(/^.*\//, "");
+  const key = c => c.querySelector("img").getAttribute("src").replace(/\?.*$/, "").replace(/^.*\//, "");
   function fill(c) {
     const im = c.querySelector("img");
     ar = (im.naturalWidth && im.naturalHeight) ? im.naturalWidth / im.naturalHeight : 0.678; size();
     vImg.src = im.getAttribute("src"); vImg.alt = im.alt;                       // the small image shows at once
-    const big = new Image(); big.src = "img/zoom/" + key(c);
+    const big = new Image(); big.src = "img/zoom/" + key(c) + "?v=3";
     big.onload = () => { if (card === c) vImg.src = big.src; };                  // then the sharp one
     $("v-kicker").textContent = seriesOf(c);
     $("v-name").textContent = c.querySelector("h3").textContent.trim();
