@@ -342,13 +342,13 @@ dialog.view.in .v-info{opacity:1;transform:none}
  </div>
  <div class="series sub" id="s-mucha"><h3 class="serif st" data-ml="മുഹ">Mucha</h3></div>
  <div class="grid">
-  <article class="card" data-d="mucha-zodiac"><img src="img/mucha-zodiac.jpg?v=6" alt="Zodiac embroidery design after Alphonse Mucha: a woman in profile before a zodiac ring" loading="lazy"><div><h3 class="serif">Zodiac</h3><div class="ml">രാശിചക്രം</div></div></article>
-  <article class="card" data-d="mucha-spring"><img src="img/mucha-spring.jpg?v=6" alt="Spring embroidery design after Alphonse Mucha: a red-haired woman in cream drapery smelling blossoms by moonlit water" loading="lazy"><div><h3 class="serif">Spring</h3><div class="ml">വസന്തം</div></div></article>
-  <article class="card" data-d="mucha-summer"><img src="img/mucha-summer.jpg?v=6" alt="Summer embroidery design after Alphonse Mucha: a golden-haired woman in white holding a small bird" loading="lazy"><div><h3 class="serif">Summer</h3><div class="ml">ഗ്രീഷ്മം</div></div></article>
-  <article class="card" data-d="mucha-autumn"><img src="img/mucha-autumn.jpg?v=6" alt="Autumn embroidery design after Alphonse Mucha: a woman crowned with autumn leaves holding a bowl of grapes" loading="lazy"><div><h3 class="serif">Autumn</h3><div class="ml">ശരത്</div></div></article>
-  <article class="card" data-d="mucha-winter"><img src="img/mucha-winter.jpg?v=6" alt="Winter embroidery design after Alphonse Mucha: a woman in a teal hooded cloak warming a small bird" loading="lazy"><div><h3 class="serif">Winter</h3><div class="ml">ശിശിരം</div></div></article>
-  <article class="card" data-d="mucha-job"><img src="img/mucha-job.jpg?v=6" alt="Job embroidery design after Alphonse Mucha: a woman with swirling auburn hair and a curl of smoke from a lit cigarette" loading="lazy"><div><h3 class="serif">Job</h3><div class="ml">ജോബ്</div></div></article>
-  <article class="card" data-d="mucha-dance"><img src="img/mucha-dance.jpg?v=6" alt="Dance embroidery design after Alphonse Mucha: a dancing woman in a swirling dress" loading="lazy"><div><h3 class="serif">Dance</h3><div class="ml">നൃത്തം</div></div></article>
+  <article class="card" data-d="mucha-zodiac"><img src="img/mucha-zodiac.jpg?v=7" alt="Zodiac embroidery design after Alphonse Mucha: a woman in profile before a zodiac ring" loading="lazy"><div><h3 class="serif">Zodiac</h3><div class="ml">രാശിചക്രം</div></div></article>
+  <article class="card" data-d="mucha-spring"><img src="img/mucha-spring.jpg?v=7" alt="Spring embroidery design after Alphonse Mucha: a red-haired woman in cream drapery smelling blossoms by moonlit water" loading="lazy"><div><h3 class="serif">Spring</h3><div class="ml">വസന്തം</div></div></article>
+  <article class="card" data-d="mucha-summer"><img src="img/mucha-summer.jpg?v=7" alt="Summer embroidery design after Alphonse Mucha: a golden-haired woman in white holding a small bird" loading="lazy"><div><h3 class="serif">Summer</h3><div class="ml">ഗ്രീഷ്മം</div></div></article>
+  <article class="card" data-d="mucha-autumn"><img src="img/mucha-autumn.jpg?v=7" alt="Autumn embroidery design after Alphonse Mucha: a woman crowned with autumn leaves holding a bowl of grapes" loading="lazy"><div><h3 class="serif">Autumn</h3><div class="ml">ശരത്</div></div></article>
+  <article class="card" data-d="mucha-winter"><img src="img/mucha-winter.jpg?v=7" alt="Winter embroidery design after Alphonse Mucha: a woman in a teal hooded cloak warming a small bird" loading="lazy"><div><h3 class="serif">Winter</h3><div class="ml">ശിശിരം</div></div></article>
+  <article class="card" data-d="mucha-job"><img src="img/mucha-job.jpg?v=7" alt="Job embroidery design after Alphonse Mucha: a woman with swirling auburn hair and a curl of smoke from a lit cigarette" loading="lazy"><div><h3 class="serif">Job</h3><div class="ml">ജോബ്</div></div></article>
+  <article class="card" data-d="mucha-dance"><img src="img/mucha-dance.jpg?v=7" alt="Dance embroidery design after Alphonse Mucha: a dancing woman in a swirling dress" loading="lazy"><div><h3 class="serif">Dance</h3><div class="ml">നൃത്തം</div></div></article>
  </div>
  <div class="series sub" id="s-ravivarma"><h3 class="serif st" data-ml="രാജാ രവിവർമ്മ">Raja Ravi Varma</h3></div>
  <div class="grid">
@@ -429,6 +429,7 @@ dialog.view.in .v-info{opacity:1;transform:none}
 
 <script>
 // sound: synthesised swipe/zoom cues plus one real embroidery-machine loop (snd/stitch.mp3, CC0, 24 KB). Only after the visitor's first tap/key; mute toggle remembered per browser.
+// The loop plays only while a design is sewing and part of the pile is on screen.
 (function () {
   let ctx = null, on = true, last = 0, lastUser = 0, buf = null, src = null, sg = null, loading = null;
   function loadBuf() {
@@ -439,15 +440,33 @@ dialog.view.in .v-info{opacity:1;transform:none}
   try { on = localStorage.getItem("kadha-sound") !== "off"; } catch (_) {}
   const btn = document.getElementById("snd");
   function paint() { if (!btn) return; btn.setAttribute("aria-pressed", on ? "true" : "false"); btn.setAttribute("aria-label", on ? "Sound on" : "Sound off"); btn.querySelector(".on").hidden = !on; btn.querySelector(".off").hidden = on; }
-  function wake() { lastUser = performance.now(); if (!ctx) { const A = window.AudioContext || window.webkitAudioContext; if (!A) return; ctx = new A(); } if (ctx.state === "suspended") ctx.resume(); loadBuf(); }
-  ["pointerdown", "keydown"].forEach(t => addEventListener(t, wake, { passive: true }));
-  if (btn) btn.addEventListener("click", () => { on = !on; try { localStorage.setItem("kadha-sound", on ? "on" : "off"); } catch (_) {} paint(); if (on) KS.zoomIn(); else KS.sewing(false); });
+  // Browsers only allow audio after a real gesture. On phones pointerdown does not count, so unlock on the
+  // events that do (pointerup / touchend / click / keydown), and play one silent sample to unlock older iOS.
+  let primed = false, firstTarget = null;
+  function wake(e) {
+    lastUser = performance.now();
+    if (firstTarget === null && e) firstTarget = e.target;
+    if (!ctx) { const A = window.AudioContext || window.webkitAudioContext; if (!A) return; try { ctx = new A(); } catch (_) { return; } }
+    if (ctx.state !== "running" && ctx.resume) ctx.resume().catch(() => {});
+    if (!primed) { primed = true; try { const s = ctx.createBufferSource(); s.buffer = ctx.createBuffer(1, 1, 22050); s.connect(ctx.destination); s.start(0); } catch (_) {} }
+    loadBuf();
+  }
+  ["pointerup", "touchend", "click", "keydown"].forEach(t => addEventListener(t, wake, { passive: true, capture: true }));
+  let firstTapUsed = false;
+  if (btn) btn.addEventListener("click", () => {
+    // when sound is on but still locked, the visitor's first tap on the speaker just switches it on (no silent toggle-off)
+    const unlockTap = !firstTapUsed && on && (firstTarget === btn || btn.contains(firstTarget));
+    firstTapUsed = true;
+    if (!unlockTap) { on = !on; try { localStorage.setItem("kadha-sound", on ? "on" : "off"); } catch (_) {} }
+    paint();
+    if (on) setTimeout(() => KS.zoomIn(), 30); else KS.sewing(false);
+  });
   paint();
   const ok = () => on && ctx && ctx.state === "running";
   function noise(dur) { const b = ctx.createBuffer(1, Math.ceil(ctx.sampleRate * dur), ctx.sampleRate), d = b.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; const n = ctx.createBufferSource(); n.buffer = b; return n; }
   function env(g, t, a, peak, rel) { g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + a); g.gain.exponentialRampToValueAtTime(0.0001, t + a + rel); }
   window.KS = {
-    recent() { return performance.now() - lastUser < 12000; },
+    recent() { return lastUser > 0; },   // any gesture so far (audio is locked until then anyway)
     swipe() {                        // soft cloth swish
       if (!ok()) return; const t = ctx.currentTime, n = noise(.32), f = ctx.createBiquadFilter(), g = ctx.createGain();
       f.type = "bandpass"; f.Q.value = 1.2; f.frequency.setValueAtTime(2600, t); f.frequency.exponentialRampToValueAtTime(500, t + .28);
@@ -683,13 +702,14 @@ dialog.view.in .v-info{opacity:1;transform:none}
     deal(1);
   }
   function resume() { if (due && !adv) adv = setTimeout(advance, 1000); }
-  if ("IntersectionObserver" in window) new IntersectionObserver(es => { seen = es[0].isIntersecting; if (seen) resume(); }, { threshold: 0.35 }).observe(deck);
+  // any part of the pile on screen counts: cards keep dealing and the machine sound plays
+  if ("IntersectionObserver" in window) new IntersectionObserver(es => { seen = es[0].isIntersecting; if (seen) resume(); }, { threshold: 0 }).observe(deck);
   deck.addEventListener("pointerenter", e => { if (e.pointerType === "mouse") hover = true; });
   deck.addEventListener("pointerleave", e => { if (e.pointerType === "mouse") { hover = false; resume(); } });
   const keyOf = c => c.it.src.replace(/\?.*$/, "").replace(/^.*\//, "").replace(/\.\w+$/, "");
   function load(c) {
     const k = keyOf(c);
-    if (!data.has(k)) data.set(k, fetch("stitches/" + k + ".kst?v=6").then(r => r.ok ? r.arrayBuffer() : Promise.reject(r.status)).then(parse).catch(() => null));
+    if (!data.has(k)) data.set(k, fetch("stitches/" + k + ".kst?v=7").then(r => r.ok ? r.arrayBuffer() : Promise.reject(r.status)).then(parse).catch(() => null));
     return data.get(k);
   }
   function parse(buf) {
@@ -872,7 +892,7 @@ dialog.view.in .v-info{opacity:1;transform:none}
     const im = c.querySelector("img");
     ar = (im.naturalWidth && im.naturalHeight) ? im.naturalWidth / im.naturalHeight : 0.678; size();
     vImg.src = im.getAttribute("src"); vImg.alt = im.alt;                       // the small image shows at once
-    const big = new Image(); big.src = "img/zoom/" + key(c) + "?v=6";
+    const big = new Image(); big.src = "img/zoom/" + key(c) + "?v=7";
     big.onload = () => { if (card === c) vImg.src = big.src; };                  // then the sharp one
     $("v-kicker").textContent = seriesOf(c);
     $("v-name").textContent = c.querySelector("h3").textContent.trim();
