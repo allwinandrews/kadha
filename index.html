@@ -342,13 +342,13 @@ dialog.view.in .v-info{opacity:1;transform:none}
  </div>
  <div class="series sub" id="s-mucha"><h3 class="serif st" data-ml="മുഹ">Mucha</h3></div>
  <div class="grid">
-  <article class="card" data-d="mucha-zodiac"><img src="img/mucha-zodiac.jpg?v=7" alt="Zodiac embroidery design after Alphonse Mucha: a woman in profile before a zodiac ring" loading="lazy"><div><h3 class="serif">Zodiac</h3><div class="ml">രാശിചക്രം</div></div></article>
-  <article class="card" data-d="mucha-spring"><img src="img/mucha-spring.jpg?v=7" alt="Spring embroidery design after Alphonse Mucha: a red-haired woman in cream drapery smelling blossoms by moonlit water" loading="lazy"><div><h3 class="serif">Spring</h3><div class="ml">വസന്തം</div></div></article>
-  <article class="card" data-d="mucha-summer"><img src="img/mucha-summer.jpg?v=7" alt="Summer embroidery design after Alphonse Mucha: a golden-haired woman in white holding a small bird" loading="lazy"><div><h3 class="serif">Summer</h3><div class="ml">ഗ്രീഷ്മം</div></div></article>
-  <article class="card" data-d="mucha-autumn"><img src="img/mucha-autumn.jpg?v=7" alt="Autumn embroidery design after Alphonse Mucha: a woman crowned with autumn leaves holding a bowl of grapes" loading="lazy"><div><h3 class="serif">Autumn</h3><div class="ml">ശരത്</div></div></article>
-  <article class="card" data-d="mucha-winter"><img src="img/mucha-winter.jpg?v=7" alt="Winter embroidery design after Alphonse Mucha: a woman in a teal hooded cloak warming a small bird" loading="lazy"><div><h3 class="serif">Winter</h3><div class="ml">ശിശിരം</div></div></article>
-  <article class="card" data-d="mucha-job"><img src="img/mucha-job.jpg?v=7" alt="Job embroidery design after Alphonse Mucha: a woman with swirling auburn hair and a curl of smoke from a lit cigarette" loading="lazy"><div><h3 class="serif">Job</h3><div class="ml">ജോബ്</div></div></article>
-  <article class="card" data-d="mucha-dance"><img src="img/mucha-dance.jpg?v=7" alt="Dance embroidery design after Alphonse Mucha: a dancing woman in a swirling dress" loading="lazy"><div><h3 class="serif">Dance</h3><div class="ml">നൃത്തം</div></div></article>
+  <article class="card" data-d="mucha-zodiac"><img src="img/mucha-zodiac.jpg?v=8" alt="Zodiac embroidery design after Alphonse Mucha: a woman in profile before a zodiac ring" loading="lazy"><div><h3 class="serif">Zodiac</h3><div class="ml">രാശിചക്രം</div></div></article>
+  <article class="card" data-d="mucha-spring"><img src="img/mucha-spring.jpg?v=8" alt="Spring embroidery design after Alphonse Mucha: a red-haired woman in cream drapery smelling blossoms by moonlit water" loading="lazy"><div><h3 class="serif">Spring</h3><div class="ml">വസന്തം</div></div></article>
+  <article class="card" data-d="mucha-summer"><img src="img/mucha-summer.jpg?v=8" alt="Summer embroidery design after Alphonse Mucha: a golden-haired woman in white holding a small bird" loading="lazy"><div><h3 class="serif">Summer</h3><div class="ml">ഗ്രീഷ്മം</div></div></article>
+  <article class="card" data-d="mucha-autumn"><img src="img/mucha-autumn.jpg?v=8" alt="Autumn embroidery design after Alphonse Mucha: a woman crowned with autumn leaves holding a bowl of grapes" loading="lazy"><div><h3 class="serif">Autumn</h3><div class="ml">ശരത്</div></div></article>
+  <article class="card" data-d="mucha-winter"><img src="img/mucha-winter.jpg?v=8" alt="Winter embroidery design after Alphonse Mucha: a woman in a teal hooded cloak warming a small bird" loading="lazy"><div><h3 class="serif">Winter</h3><div class="ml">ശിശിരം</div></div></article>
+  <article class="card" data-d="mucha-job"><img src="img/mucha-job.jpg?v=8" alt="Job embroidery design after Alphonse Mucha: a woman with swirling auburn hair and a curl of smoke from a lit cigarette" loading="lazy"><div><h3 class="serif">Job</h3><div class="ml">ജോബ്</div></div></article>
+  <article class="card" data-d="mucha-dance"><img src="img/mucha-dance.jpg?v=8" alt="Dance embroidery design after Alphonse Mucha: a dancing woman in a swirling dress" loading="lazy"><div><h3 class="serif">Dance</h3><div class="ml">നൃത്തം</div></div></article>
  </div>
  <div class="series sub" id="s-ravivarma"><h3 class="serif st" data-ml="രാജാ രവിവർമ്മ">Raja Ravi Varma</h3></div>
  <div class="grid">
@@ -709,7 +709,7 @@ dialog.view.in .v-info{opacity:1;transform:none}
   const keyOf = c => c.it.src.replace(/\?.*$/, "").replace(/^.*\//, "").replace(/\.\w+$/, "");
   function load(c) {
     const k = keyOf(c);
-    if (!data.has(k)) data.set(k, fetch("stitches/" + k + ".kst?v=7").then(r => r.ok ? r.arrayBuffer() : Promise.reject(r.status)).then(parse).catch(() => null));
+    if (!data.has(k)) data.set(k, fetch("stitches/" + k + ".kst?v=8").then(r => r.ok ? r.arrayBuffer() : Promise.reject(r.status)).then(parse).catch(() => null));
     return data.get(k);
   }
   function parse(buf) {
@@ -892,7 +892,7 @@ dialog.view.in .v-info{opacity:1;transform:none}
     const im = c.querySelector("img");
     ar = (im.naturalWidth && im.naturalHeight) ? im.naturalWidth / im.naturalHeight : 0.678; size();
     vImg.src = im.getAttribute("src"); vImg.alt = im.alt;                       // the small image shows at once
-    const big = new Image(); big.src = "img/zoom/" + key(c) + "?v=7";
+    const big = new Image(); big.src = "img/zoom/" + key(c) + "?v=8";
     big.onload = () => { if (card === c) vImg.src = big.src; };                  // then the sharp one
     $("v-kicker").textContent = seriesOf(c);
     $("v-name").textContent = c.querySelector("h3").textContent.trim();
