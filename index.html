@@ -291,7 +291,7 @@ dialog.view.in .v-info{opacity:1;transform:none}
  <div class="series" id="s-spirits"><h3 class="serif st" data-ml="രാത്രിയുടെ ആത്മാക്കൾ">Spirits of the Night</h3></div>
  <div class="grid">
   <article class="card" data-d="chaathan"><img src="img/chaathan.webp" alt="Chaathan embroidery design" loading="lazy"><div><h3 class="serif">Chaathan</h3><div class="ml">ചാത്തൻ</div></div></article>
-  <article class="card" data-d="odiyan"><img src="img/odiyan.webp" alt="Odiyan embroidery design" loading="lazy"><div><h3 class="serif">Odiyan</h3><div class="ml">ഒടിയൻ</div></div></article>
+  <article class="card" data-d="odiyan"><img src="img/odiyan.webp?v=10" alt="Odiyan embroidery design: a skeleton with a buffalo skull and horns, crouched on a paddy bund under the moon" loading="lazy"><div><h3 class="serif">Odiyan</h3><div class="ml">ഒടിയൻ</div></div></article>
   <article class="card" data-d="yakshi"><img src="img/yakshi.webp" alt="Yakshi embroidery design" loading="lazy"><div><h3 class="serif">Yakshi</h3><div class="ml">യക്ഷി</div></div></article>
  </div>
  <div class="series" id="s-gods"><h3 class="serif st" data-ml="ദൈവങ്ങളും ഇതിഹാസങ്ങളും">Gods &amp; Epics</h3></div>
@@ -676,7 +676,7 @@ dialog.view.in .v-info{opacity:1;transform:none}
   deck.setAttribute("role", "button"); deck.setAttribute("aria-label", "Design pile. Press Enter or swipe to see the next design");
   const cards = items.map((it, i) => {
     const f = document.createElement("div"); f.className = "dcard";
-    const im = new Image(); if (i < 6) im.src = it.src; else im.dataset.src = it.src; im.alt = it.alt; im.decoding = "async"; im.draggable = false;
+    const im = new Image(); if (i < 6) im.src = it.src; else im.dataset.src = it.src; im.alt = ""; im.decoding = "async"; im.draggable = false;   // decorative: the caption names the top card
     f.appendChild(im); deck.appendChild(f); return { el: f, it };
   });
   const bar = document.createElement("div"); bar.className = "deck-bar";
@@ -687,6 +687,9 @@ dialog.view.in .v-info{opacity:1;transform:none}
   bar.appendChild(note);   // sound toggle sits right under the stitching pile
   fig.replaceChildren(deck, bar, cap);
 
+  const loadRest = () => cards.forEach(c => { const im = c.el.querySelector("img"); if (im.dataset.src) { im.src = im.dataset.src; delete im.dataset.src; } });
+  const idle = () => (window.requestIdleCallback || (f => setTimeout(f, 300)))(loadRest);
+  if (document.readyState === "complete") idle(); else addEventListener("load", idle, { once: true });   // cards behind the top six: fetched once the page is in
   let order = cards.slice();          // order[0] is the top card
   const rnd = (a, b) => a + Math.random() * (b - a);
   function pose(c) { c.x = rnd(-48, 48); c.y = rnd(-30, 30); c.r = rnd(-14, 14); }
@@ -723,7 +726,7 @@ dialog.view.in .v-info{opacity:1;transform:none}
   const keyOf = c => c.it.src.replace(/\?.*$/, "").replace(/^.*\//, "").replace(/\.\w+$/, "");
   function load(c) {
     const k = keyOf(c);
-    if (!data.has(k)) data.set(k, fetch("stitches/" + k + ".kst?v=9").then(r => r.ok ? r.arrayBuffer() : Promise.reject(r.status)).then(parse).catch(() => null));
+    if (!data.has(k)) data.set(k, fetch("stitches/" + k + ".kst?v=10").then(r => r.ok ? r.arrayBuffer() : Promise.reject(r.status)).then(parse).catch(() => null));
     return data.get(k);
   }
   function parse(buf) {
@@ -906,7 +909,7 @@ dialog.view.in .v-info{opacity:1;transform:none}
     const im = c.querySelector("img");
     ar = (im.naturalWidth && im.naturalHeight) ? im.naturalWidth / im.naturalHeight : 0.678; size();
     vImg.src = im.getAttribute("src"); vImg.alt = im.alt;                       // the small image shows at once
-    const big = new Image(); big.src = "img/zoom/" + key(c).replace(/\.\w+$/, ".webp") + "?v=9";
+    const big = new Image(); big.src = "img/zoom/" + key(c).replace(/\.\w+$/, ".webp") + "?v=10";
     big.onload = () => { if (card === c) vImg.src = big.src; };                  // then the sharp one
     $("v-kicker").textContent = seriesOf(c);
     $("v-name").textContent = c.querySelector("h3").textContent.trim();
