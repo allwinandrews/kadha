@@ -91,6 +91,21 @@ dialog::backdrop{background:rgba(0,0,0,.75)}
 .dlg select{width:100%;background:#000;border:1px solid #3a3734;color:var(--ink);padding:10px 12px;font:16px/1.4 Inter,sans-serif;border-radius:2px;color-scheme:dark;cursor:pointer}
 .dlg select:focus-visible{outline:none;border-color:var(--ink)}
 .dp{position:relative}
+.wa-part{display:flex;flex-direction:column;gap:14px}.wa-part[hidden],.su[hidden],.su-done[hidden],.seg[hidden]{display:none}
+.seg{display:grid;grid-template-columns:1fr 1fr;border:1px solid #3a3734;border-radius:2px;padding:3px;gap:3px}
+.seg button{min-height:40px;background:none;border:0;border-radius:2px;color:var(--mute);font:600 13px Inter,sans-serif;letter-spacing:.04em;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:#000}
+.seg button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.su{display:flex;flex-direction:column;gap:12px}
+.su input:not([type=checkbox]),.su select{width:100%;background:#000;border:1px solid #3a3734;color:var(--ink);padding:11px 12px;font:16px/1.4 Inter,sans-serif;border-radius:2px;color-scheme:dark}
+.su input:focus-visible,.su select:focus-visible{outline:none;border-color:var(--ink)}
+.su input[aria-invalid="true"],.su select[aria-invalid="true"]{border-color:var(--flame)}
+.su-row{display:grid;grid-template-columns:1fr 1.4fr;gap:10px}
+.su-ok{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.5;color:var(--mute);cursor:pointer}
+.su-ok input{width:20px;height:20px;margin-top:1px;flex:none;accent-color:var(--ink)}
+.su-err{color:#ff8a73;font-size:13px;margin:0}
+.su-done h4{font:600 26px/1.15 "Cormorant Garamond",Georgia,serif;margin-bottom:6px}
+.su-done p{color:var(--mute);font-size:15px;margin-bottom:16px}
 .dp-field{display:flex;align-items:center;gap:10px;background:#000;border:1px solid #3a3734;border-radius:2px;padding:0 6px 0 10px;min-height:52px;cursor:text;transition:border-color .2s}
 .dp-field:focus-within{border-color:var(--ink)}
 .dp-th{width:26px;height:39px;object-fit:cover;border:1px solid var(--line);flex:none}
@@ -425,7 +440,7 @@ dialog.view.in .v-info{opacity:1;transform:none}
 
 <section id="enquire" class="enquire"><div class="wrap">
  <h2 class="serif">Have a story in mind?</h2>
- <p class="sub">Tap one and WhatsApp opens with your message ready. Add anything you like before sending.</p>
+ <p class="sub">Tap one and WhatsApp opens with your message ready. Add anything you like before sending. For the first run you can also sign up with a short form instead.</p>
  <div class="opts">
   <button class="opt first" type="button" data-topic="firstrun"><b>Join the first run <span class="free">No payment</span></b><span>Every design is made in a small numbered run. Reserve your spot now and we'll message you first when it opens.</span></button>
   <button class="opt" type="button" data-topic="custom"><b>Custom design</b><span>Your own story, character or idea, made into a Kadha piece.</span></button>
@@ -470,10 +485,26 @@ dialog.view.in .v-info{opacity:1;transform:none}
    <div class="dp-list" id="dp-list" role="listbox" aria-label="Designs" hidden></div>
    <select id="dlg-design" hidden aria-hidden="true" tabindex="-1"><option value="">No specific design</option></select>
   </div>
+  <div class="seg" id="seg" hidden><button type="button" id="seg-wa" aria-pressed="true">WhatsApp</button><button type="button" id="seg-form" aria-pressed="false">Sign-up form</button></div>
+  <form class="su" id="su" hidden novalidate>
+   <div><label class="lbl" for="su-name">Name</label><input id="su-name" name="name" autocomplete="name" maxlength="80" required></div>
+   <div><label class="lbl" for="su-contact">Instagram or email</label><input id="su-contact" name="contact" autocomplete="email" maxlength="120" placeholder="@yourname or you@email.com" required></div>
+   <div><label class="lbl" for="su-wa">WhatsApp number <span style="opacity:.7">(optional)</span></label><input id="su-wa" name="wa" type="tel" autocomplete="tel" maxlength="24"></div>
+   <div class="su-row">
+    <div><label class="lbl" for="su-size">Size</label><select id="su-size" required><option value="">Choose</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option><option>Not sure</option></select></div>
+    <div><label class="lbl" for="su-country">Country</label><input id="su-country" name="country" autocomplete="country-name" maxlength="60" required></div>
+   </div>
+   <label class="su-ok"><input type="checkbox" id="su-ok" required><span>Message me when the first run opens. We only use this to tell you about Kadha drops.</span></label>
+   <p class="su-err" id="su-err" role="alert" hidden></p>
+   <div class="dlg-act"><button class="btn ghost" type="button" id="su-cancel">Cancel</button><button class="btn" type="submit" id="su-send">Reserve my spot</button></div>
+  </form>
+  <div class="su-done" id="su-done" hidden><h4 class="serif">You're on the list.</h4><p>We'll message you first when the first run opens. No payment until then.</p><div class="dlg-act"><button class="btn ghost" type="button" id="su-close">Close</button></div></div>
+  <div class="wa-part" id="wa-part">
   <div><span class="lbl">Your message</span><div class="preview" id="dlg-msg"></div></div>
   <div><label class="lbl" for="dlg-extra">Anything else? (optional)</label><textarea id="dlg-extra" maxlength="500" placeholder="Size, colour, questions, your idea..."></textarea></div>
   <div class="count"><span id="dlg-n">0</span>/500</div>
   <div class="dlg-act"><button class="btn ghost" type="button" id="dlg-cancel">Cancel</button><button class="btn wa" type="button" id="dlg-send"><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1.1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.6-.3z"/></svg>Send on WhatsApp</button></div>
+  </div>
  </div>
 </dialog>
 
@@ -558,6 +589,7 @@ dialog.view.in .v-info{opacity:1;transform:none}
 </script>
 <script>
 // WhatsApp enquiries. Nothing is stored or sent to this site: the visitor's own WhatsApp opens with the text filled in.
+// The first-run sign-up form (below) posts to Kadha's Google Form instead.
 // The number is assembled only on click and never written into the page as a link, keeping it from simple scrapers.
 (function () {
   const P = ["44", "7407", "488", "379"];
@@ -694,7 +726,41 @@ dialog.view.in .v-info{opacity:1;transform:none}
            : t.msg + (c ? "\nDesign: " + label : "");
     }
   }
-  function show(from) { opener = from; extra.value = ""; closeList(false); update(); render(); dlg.showModal(); if (topic === null) extra.focus(); }
+  function show(from) { opener = from; extra.value = ""; closeList(false); update(); render(); setMode("wa"); seg.hidden = topic !== "firstrun"; dlg.showModal(); if (topic === null) extra.focus(); }
+
+  // first run: WhatsApp, or a short sign-up form whose answers go to the Kadha Google Form (and its sheet). Nothing is stored on this site.
+  const FORM = "https://docs.google.com/forms/d/e/1FAIpQLSdOGmMlaVemcqAKx_nl_bbwJtENNMAmkAsTkM4a1lbekrot9w/formResponse";
+  const F = { name: "entry.2006948369", contact: "entry.1833199942", wa: "entry.1268813428", design: "entry.1698989699",
+              size: "entry.1464984500", country: "entry.1148273827", consent: "entry.1179035966" };
+  const seg = $("seg"), su = $("su"), suDone = $("su-done"), waPart = $("wa-part"), suErr = $("su-err"), suSend = $("su-send");
+  function setMode(m) {
+    const form = m === "form";
+    $("seg-wa").setAttribute("aria-pressed", String(!form)); $("seg-form").setAttribute("aria-pressed", String(form));
+    waPart.hidden = form; su.hidden = !form; suDone.hidden = true; suErr.hidden = true;
+  }
+  $("seg-wa").addEventListener("click", () => setMode("wa"));
+  $("seg-form").addEventListener("click", () => { setMode("form"); $("su-name").focus(); });
+  $("su-cancel").addEventListener("click", close);
+  $("su-close").addEventListener("click", close);
+  su.addEventListener("input", e => e.target.removeAttribute("aria-invalid"));
+  su.addEventListener("submit", e => {
+    e.preventDefault();
+    const req = ["su-name", "su-contact", "su-size", "su-country"].map($);
+    let bad = req.filter(x => !clean(x.value));
+    if (!$("su-ok").checked) bad.push($("su-ok"));
+    req.forEach(x => x.setAttribute("aria-invalid", String(bad.includes(x))));
+    if (bad.length) { suErr.textContent = $("su-ok").checked ? "Please fill in the highlighted fields." : "Please fill in every field and tick the box."; suErr.hidden = false; bad[0].focus(); return; }
+    const c = cardsById[pickEl.value], name = c ? c.querySelector("h3").textContent.trim() : "", series = c ? seriesOf(c) : "";
+    const body = new URLSearchParams();
+    body.set(F.name, clean($("su-name").value)); body.set(F.contact, clean($("su-contact").value)); body.set(F.wa, clean($("su-wa").value));
+    body.set(F.design, c ? name + (series ? " (" + series + ")" : "") : "Any / not sure");
+    body.set(F.size, $("su-size").value); body.set(F.country, clean($("su-country").value)); body.set(F.consent, "Yes, message me when the first run opens");
+    suSend.disabled = true; suSend.textContent = "Sending...";
+    fetch(FORM, { method: "POST", mode: "no-cors", body })
+      .then(() => { su.hidden = true; seg.hidden = true; suDone.hidden = false; su.reset(); $("su-close").focus(); })
+      .catch(() => { suErr.textContent = "That didn't go through. Check your connection, or use WhatsApp instead."; suErr.hidden = false; })
+      .finally(() => { suSend.disabled = false; suSend.textContent = "Reserve my spot"; });
+  });
   function clean(t) { return t.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, "").slice(0, MAX).trim(); }
   function full() { const e = clean(extra.value); return base + (e ? "\n\n" + e : ""); }
   function render() { msgEl.textContent = full(); n.textContent = extra.value.length; }
